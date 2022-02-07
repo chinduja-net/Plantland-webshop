@@ -4,8 +4,6 @@ import { PropsCart } from "../assets/props";
 import styled from "styled-components";
 import user from "../assets/users";
 
-
-
 function Cart() {
   const { cart, setCart } = useContext(ProductContext);
   useEffect(() => {
@@ -28,13 +26,10 @@ function Cart() {
     clickedCart.itemsInCart = itemsInCart;
     clickedCart.itemsLeft = itemsLeft;
     console.log("clicked", clickedCart);
-    let updatedCart = [];
-    updatedCart = allCartItems.filter(
-      (c: PropsCart) => c.id !== clickedCart.id
-    );
 
-    updatedCart.unshift(clickedCart);
-    console.log("replaced", updatedCart);
+    let index = allCartItems.findIndex((c: PropsCart) => c.id === id);
+    let updatedCart = allCartItems.slice();
+    updatedCart[index] = clickedCart;
     localStorage.setItem("cart", JSON.stringify(updatedCart));
     setCart(updatedCart);
   };
@@ -52,85 +47,77 @@ function Cart() {
     clickedCart.itemsInCart = itemsInCart;
     clickedCart.itemsLeft = itemsLeft;
     console.log("clicked", clickedCart);
-    let updatedCart = [];
-    updatedCart = allCartItems.filter(
-      (c: PropsCart) => c.id !== clickedCart.id
-    );
+    let index = allCartItems.findIndex((c: PropsCart) => c.id === id);
+    let updatedCart = allCartItems.slice();
+    updatedCart[index] = clickedCart;
 
-    updatedCart.unshift(clickedCart);
-   // console.log("replaced", updatedCart);
-   if (sessionStorage.getItem("Role")) {
-    user[0].cart = updatedCart;
-    sessionStorage.setItem("User", JSON.stringify(user));
-    localStorage.setItem("cart", JSON.stringify(updatedCart))
-  } else {
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
-  };
+    if (sessionStorage.getItem("Role")) {
+      user[0].cart = updatedCart;
+      sessionStorage.setItem("User", JSON.stringify(user));
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+    } else {
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+    }
     setCart(updatedCart);
   };
-  const handleRemoveCartItem = (id:string) => {
-
+  const handleRemoveCartItem = (id: string) => {
     let allCartItems = JSON.parse(localStorage.getItem("cart") || "");
-    let index = allCartItems.findIndex((c : PropsCart) => c.id === id);
+    let index = allCartItems.findIndex((c: PropsCart) => c.id === id);
     console.log(index);
     let updatedCart = allCartItems.splice(index);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
-    setCart(updatedCart)
-
-  }
+    setCart(updatedCart);
+  };
   return (
-  
-  <>
-    <section>
-     
-
-    </section>
-    <section>
-      {cart
-        ? cart.map((cartItem: PropsCart) => {
-            return (
-              <List key={cartItem.id}>
-                <Image src={cartItem.image} />
-                <Para>{cartItem.name}</Para>
-                <Button
-                  disabled={cartItem.itemsLeft === 0}
-                  onClick={() =>
-                    handleIncreaseCartQuantity(
-                      cartItem.itemsLeft,
-                      cartItem.id,
-                      cartItem.itemsInCart
-                    )
-                  }
-                >
-                  +
-                </Button>
-                <Span>{cartItem.itemsLeft} left</Span>
-                <Button
-                  disabled={cartItem.itemsLeft === 10}
-                  onClick={() =>
-                    handleDecreaseCartQuantity(
-                      cartItem.itemsLeft,
-                      cartItem.id,
-                      cartItem.itemsInCart
-                    )
-                  }
-                >
-                  -
-                </Button>
-                <div>
-                  <Para>
-                    {cartItem.price} x {cartItem.itemsInCart}{" "}
-                    {cartItem.price * cartItem.itemsInCart}{" "}
-                  </Para>
-                </div>
-                <Button onClick = {() =>handleRemoveCartItem(cartItem.id)}>remove</Button>
-              </List>
-            );
-          })
-        : null}
-    </section>
+    <>
+      <section></section>
+      <section>
+        {cart
+          ? cart.map((cartItem: PropsCart) => {
+              return (
+                <List key={cartItem.id}>
+                  <Image src={cartItem.image} />
+                  <Para>{cartItem.name}</Para>
+                  <Button
+                    disabled={cartItem.itemsLeft === 0}
+                    onClick={() =>
+                      handleIncreaseCartQuantity(
+                        cartItem.itemsLeft,
+                        cartItem.id,
+                        cartItem.itemsInCart
+                      )
+                    }
+                  >
+                    +
+                  </Button>
+                  <Span>{cartItem.itemsLeft} left</Span>
+                  <Button
+                    disabled={cartItem.itemsLeft === 10}
+                    onClick={() =>
+                      handleDecreaseCartQuantity(
+                        cartItem.itemsLeft,
+                        cartItem.id,
+                        cartItem.itemsInCart
+                      )
+                    }
+                  >
+                    -
+                  </Button>
+                  <div>
+                    <Para>
+                      {cartItem.price} x {cartItem.itemsInCart}{" "}
+                      {cartItem.price * cartItem.itemsInCart}{" "}
+                    </Para>
+                  </div>
+                  <Button onClick={() => handleRemoveCartItem(cartItem.id)}>
+                    remove
+                  </Button>
+                </List>
+              );
+            })
+          : null}
+      </section>
     </>
-   
   );
 }
 
