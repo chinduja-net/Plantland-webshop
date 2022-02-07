@@ -5,26 +5,64 @@ import styled from "styled-components";
 
 function Cart() {
   const { cart, setCart } = useContext(ProductContext);
- useEffect(() => {
-   if(localStorage.getItem('cart')){
-    let allCart = JSON.parse(localStorage.getItem("cart") || '')
-    setCart(allCart)
-   }else
-   return
+  useEffect(() => {
+    if (localStorage.getItem("cart")) {
+      let allCart = JSON.parse(localStorage.getItem("cart") || "");
+      setCart(allCart);
+    } else return;
+  }, [setCart]);
+
+
+  const handleIncreaseCartQuantity = (
+    itemsLeft: number,
+    id: string,
+    itemsInCart: number
+  ) => {
+    itemsLeft -= 1;
+    itemsInCart += 1;
+    let allCartItems = JSON.parse(localStorage.getItem("cart") || "");
+    let clickedCart = allCartItems.filter((c: PropsCart) => c.id === id)[0];
+
+    clickedCart.itemsInCart = itemsInCart;
+    clickedCart.itemsLeft = itemsLeft;
+    console.log('clicked',clickedCart);
+    let updatedCart = []
+    updatedCart = allCartItems.filter(
+      (c: PropsCart) => c.id !== clickedCart.id
+    );
     
-  }, [setCart]); 
+  updatedCart.unshift(clickedCart)
+  console.log('replaced',updatedCart);
+  localStorage.setItem("cart", JSON.stringify(updatedCart));
+    setCart(updatedCart)
+  
+  };
+
   return (
     <div>
       {cart
         ? cart.map((cartItem: PropsCart) => {
             return (
               <List key={cartItem.id}>
-                <Para>{cartItem.name}</Para>
-                <Para>{cartItem.price}kr</Para>
                 <Image src={cartItem.image} />
-                <Button>+</Button>
+                <Para>{cartItem.name}</Para>
+                <Button
+                  onClick={(e) =>
+                    handleIncreaseCartQuantity(
+                      cartItem.itemsLeft,
+                      cartItem.id,
+                      cartItem.itemsInCart
+                    )
+                  }
+                >
+                  +
+                </Button>
                 <Span>{cartItem.itemsLeft} left</Span>
                 <Button>-</Button>
+                <div>
+                  <Para>{cartItem.price} x {cartItem.itemsInCart}</Para>
+                 
+                </div>
               </List>
             );
           })
@@ -35,8 +73,8 @@ function Cart() {
 
 export default Cart;
 const List = styled.li`
-list-style-type: none;
-`
+  list-style-type: none;
+`;
 const Para = styled.p`
   font-size: 0.8rem;
 `;

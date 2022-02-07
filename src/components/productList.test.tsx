@@ -5,7 +5,7 @@ jest.mock("React", () => ({
 
 import { render, screen, within } from "@testing-library/react";
 import ProductList from "./ProductList";
-import {Props} from '../assets/props'
+import { Props } from "../assets/props";
 
 describe("Testing ProductList Component", () => {
   render(<ProductList />);
@@ -20,21 +20,23 @@ describe("Testing ProductList Component", () => {
 
   it("renders product name, image, price in each card", () => {
     render(<ProductList />);
-    const productsData  = {
-      id: '1',
-      name: '',
-      image:'',
-      price: '',
-      
-    }
-   const name = screen.queryAllByText(productsData.name)[1] as HTMLAnchorElement
-   expect(name).toBeInTheDocument()
-   const image = screen.queryAllByText(productsData.image)[2] as HTMLAnchorElement
-   expect(image).toBeInTheDocument()
-   const price = screen.queryAllByText(productsData.price)[3] as HTMLAnchorElement
-   expect(price).toBeInTheDocument()
-  
+    const productsData = {
+      id: "1",
+      name: "",
+      image: "",
+      price: "",
+    };
+    const name = screen.queryAllByText(
+      productsData.name
+    )[1] as HTMLAnchorElement;
+    expect(name).toBeInTheDocument();
+    const image = screen.queryAllByText(
+      productsData.image
+    )[2] as HTMLAnchorElement;
+    expect(image).toBeInTheDocument();
+    const price = screen.queryAllByText(
+      productsData.price
+    )[3] as HTMLAnchorElement;
+    expect(price).toBeInTheDocument();
   });
-
-  
 });

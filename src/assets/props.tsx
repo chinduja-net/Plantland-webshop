@@ -5,6 +5,7 @@ export interface Props{
   price:number,
   quantity:number,
   inCart:boolean,
+  itemsLeft:number,
   itemsInCart:number
 }
 
@@ -15,7 +16,8 @@ export interface PropsCart{
   price:number,
   quantity:number,
   inCart:boolean,
-  itemsLeft:number
+  itemsLeft:number,
+  itemsInCart:number
 }
 
 

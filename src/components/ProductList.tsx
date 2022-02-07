@@ -1,14 +1,13 @@
-import { useContext, useEffect} from "react";
+import { useContext, useEffect } from "react";
 import styled from "styled-components";
 import { ProductContext } from "../context/productProvider";
 import productsData from "../assets/data";
 import { Props } from "../assets/props";
 
-
 function ProductList() {
   const { setProducts, products, setCart, cart, searchInput, setSearchInput } =
     useContext(ProductContext);
-  
+
   localStorage.setItem("products", JSON.stringify(productsData));
 
   useEffect(() => {
@@ -22,26 +21,26 @@ function ProductList() {
         product.name.toLowerCase().includes(searchInput.toLocaleLowerCase())
       );
 
-  const handleAddToCart = (id: string, e: any, quantity: number) => {
-    quantity-=1;
+  const handleAddToCart = (id: string, e: any,itemsInCart:number, itemsLeft: number) => {
+    itemsLeft -= 1;
+    itemsInCart +=1;
     e.target.disabled = true;
     const cartProduct = products.filter(
       (product: Props) => product.id === id
     )[0];
-    
+
     cartProduct.inCart = true;
-    cartProduct.itemsLeft = quantity;
-    console.log(cartProduct);
+    cartProduct.itemsLeft = itemsLeft;
+    cartProduct.itemsInCart = itemsInCart;
+    //console.log(cartProduct);
     let updatedCart = [...cart, cartProduct];
 
     localStorage.setItem("cart", JSON.stringify(updatedCart));
     setCart(updatedCart);
   };
-  
 
   return (
     <article>
-    
       <Input
         type="search"
         value={searchInput}
@@ -60,7 +59,7 @@ function ProductList() {
                   <BUTTON
                     disabled={false}
                     onClick={(e) => {
-                      handleAddToCart(product.id, e, product.quantity);
+                      handleAddToCart(product.id, e, product.itemsInCart, product.itemsLeft);
                     }}
                   >
                     To cart
@@ -77,9 +76,8 @@ function ProductList() {
 export default ProductList;
 
 const Input = styled.input`
-width: 300px;
-
-`
+  width: 300px;
+`;
 
 const Title = styled.h2`
   font-size: 1.5em;
