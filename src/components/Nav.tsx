@@ -9,7 +9,7 @@ function Nav() {
         <button>LOGIN</button>
       </Link>
       <Link to="/cart">
-        <button><BsCartPlus/></button>
+        <BsCartPlus/>
       </Link>
     </div>
   );

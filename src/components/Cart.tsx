@@ -1,7 +1,9 @@
 import React, { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { ProductContext } from "../context/productProvider";
 import { PropsCart } from "../assets/props";
 import styled from "styled-components";
+import { BiHomeAlt } from "react-icons/bi"
 import user from "../assets/users";
 
 function Cart() {
@@ -64,7 +66,9 @@ function Cart() {
     let allCartItems = JSON.parse(localStorage.getItem("cart") || "");
     let index = allCartItems.findIndex((c: PropsCart) => c.id === id);
     console.log(index);
-    let updatedCart = allCartItems.splice(index);
+    let updatedCart = allCartItems.slice();
+    updatedCart.splice(index, 1);
+    console.log(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
     setCart(updatedCart);
   };
@@ -90,7 +94,7 @@ function Cart() {
                   >
                     +
                   </Button>
-                  <Span>{cartItem.itemsLeft} left</Span>
+                  <Span>{cartItem.itemsInCart} </Span>
                   <Button
                     disabled={cartItem.itemsLeft === 10}
                     onClick={() =>
@@ -117,6 +121,7 @@ function Cart() {
             })
           : null}
       </section>
+    <Link to ="/"><BiHomeAlt/></Link>  
     </>
   );
 }

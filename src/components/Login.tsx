@@ -1,13 +1,16 @@
 import { useState } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import user from "../assets/users";
-
 function Login() {
   const [enteredUserName, setEnteredUserName] = useState("");
   const [enteredPassWord, setEnteredPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogIn = () => {
-    if (!enteredUserName || !enteredPassWord) {
+    if (!enteredUserName || !enteredPassWord) { 
+      window.alert("Enter userName & Password to login")
+
       return;
     }
 
@@ -23,8 +26,8 @@ function Login() {
     setEnteredPassword("");
     setEnteredUserName("");
     window.alert("login success");
-    
     sessionStorage.setItem("Role", "user");
+    navigate('/')
   };
 
   const handleLogout = () => {
