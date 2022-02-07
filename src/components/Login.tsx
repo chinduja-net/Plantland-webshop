@@ -23,11 +23,13 @@ function Login() {
     setEnteredPassword("");
     setEnteredUserName("");
     window.alert("login success");
-        sessionStorage.setItem("Token", "user");
+    
+    sessionStorage.setItem("Role", "user");
   };
 
   const handleLogout = () => {
-    sessionStorage.removeItem("Token")
+    sessionStorage.removeItem("Role")
+    sessionStorage.removeItem("User")
     window.alert('logged out successfully!')
   }
   return (

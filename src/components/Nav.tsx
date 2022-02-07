@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { BsCartPlus } from 'react-icons/bs';
 
 function Nav() {
   return (
@@ -8,7 +9,7 @@ function Nav() {
         <button>LOGIN</button>
       </Link>
       <Link to="/cart">
-        <button>CART</button>
+        <button><BsCartPlus/></button>
       </Link>
     </div>
   );

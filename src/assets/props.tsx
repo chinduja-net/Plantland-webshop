@@ -14,7 +14,6 @@ export interface PropsCart{
   name: string,
   image:string,
   price:number,
-  quantity:number,
   inCart:boolean,
   itemsLeft:number,
   itemsInCart:number

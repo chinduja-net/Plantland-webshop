@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { ProductContext } from "../context/productProvider";
 import productsData from "../assets/data";
 import { Props } from "../assets/props";
+import user from "../assets/users";
 
 function ProductList() {
   const { setProducts, products, setCart, cart, searchInput, setSearchInput } =
@@ -21,9 +22,14 @@ function ProductList() {
         product.name.toLowerCase().includes(searchInput.toLocaleLowerCase())
       );
 
-  const handleAddToCart = (id: string, e: any,itemsInCart:number, itemsLeft: number) => {
+  const handleAddToCart = (
+    id: string,
+    e: any,
+    itemsInCart: number,
+    itemsLeft: number
+  ) => {
     itemsLeft -= 1;
-    itemsInCart +=1;
+    itemsInCart += 1;
     e.target.disabled = true;
     const cartProduct = products.filter(
       (product: Props) => product.id === id
@@ -34,8 +40,14 @@ function ProductList() {
     cartProduct.itemsInCart = itemsInCart;
     //console.log(cartProduct);
     let updatedCart = [...cart, cartProduct];
+    if (sessionStorage.getItem("Role")) {
+      user[0].cart = updatedCart;
+      sessionStorage.setItem("User", JSON.stringify(user));
+      localStorage.setItem("cart", JSON.stringify(updatedCart))
+    } else {
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+    }
 
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
     setCart(updatedCart);
   };
 
@@ -59,7 +71,12 @@ function ProductList() {
                   <BUTTON
                     disabled={false}
                     onClick={(e) => {
-                      handleAddToCart(product.id, e, product.itemsInCart, product.itemsLeft);
+                      handleAddToCart(
+                        product.id,
+                        e,
+                        product.itemsInCart,
+                        product.itemsLeft
+                      );
                     }}
                   >
                     To cart
