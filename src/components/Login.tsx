@@ -26,6 +26,7 @@ function Login() {
     setEnteredPassword("");
     setEnteredUserName("");
     window.alert("login success");
+    localStorage.removeItem('cart')
     sessionStorage.setItem("Role", "user");
     navigate('/')
   };

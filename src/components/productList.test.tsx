@@ -5,7 +5,7 @@ jest.mock("React", () => ({
 
 import { render, screen, within } from "@testing-library/react";
 import ProductList from "./ProductList";
-import { Props } from "../assets/props";
+import userEvent from "@testing-library/user-event"
 
 describe("Testing ProductList Component", () => {
   render(<ProductList />);
@@ -17,7 +17,7 @@ describe("Testing ProductList Component", () => {
     const heading = screen.getByText("Products");
     expect(heading).toBeInTheDocument();
   });
-
+  
   it("renders product name, image, price in each card", () => {
     render(<ProductList />);
     const productsData = {
@@ -40,3 +40,14 @@ describe("Testing ProductList Component", () => {
     expect(price).toBeInTheDocument();
   });
 });
+
+describe('searchbar', () => {
+  it('is empty initially', () => {
+      render(<ProductList/>)
+      const input = screen.getByPlaceholderText('Search for products')
+      expect(input).toHaveValue('')
+  })
+
+  
+
+})

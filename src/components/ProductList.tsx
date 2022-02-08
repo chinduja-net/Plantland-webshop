@@ -9,12 +9,17 @@ function ProductList() {
   const { setProducts, products, setCart, cart, searchInput, setSearchInput } =
     useContext(ProductContext);
 
-  localStorage.setItem("products", JSON.stringify(productsData));
+  if (!localStorage.getItem("products")) {
+    localStorage.setItem("products", JSON.stringify(productsData));
+    setProducts(productsData);
+  }
 
   useEffect(() => {
-    let allProducts = JSON.parse(localStorage.getItem("products") || "");
-    setProducts(allProducts);
-  }, [setProducts]);
+    if (localStorage.getItem("products")) {
+      let allProducts = JSON.parse(localStorage.getItem("products") || "");
+      setProducts(allProducts);
+    }
+  }, []);
 
   let filteredProduct = !searchInput
     ? products
@@ -23,14 +28,14 @@ function ProductList() {
       );
 
   const handleAddToCart = (
+    index: number,
     id: string,
-    e: any,
     itemsInCart: number,
     itemsLeft: number
   ) => {
+    handleDisable(index);
     itemsLeft -= 1;
     itemsInCart += 1;
-    e.target.disabled = true;
     const cartProduct = products.filter(
       (product: Props) => product.id === id
     )[0];
@@ -38,17 +43,26 @@ function ProductList() {
     cartProduct.inCart = true;
     cartProduct.itemsLeft = itemsLeft;
     cartProduct.itemsInCart = itemsInCart;
-    //console.log(cartProduct);
     let updatedCart = [...cart, cartProduct];
     if (sessionStorage.getItem("Role")) {
       user[0].cart = updatedCart;
       sessionStorage.setItem("User", JSON.stringify(user));
-      localStorage.setItem("cart", JSON.stringify(updatedCart))
     } else {
       localStorage.setItem("cart", JSON.stringify(updatedCart));
     }
 
     setCart(updatedCart);
+  };
+  const handleDisable = (index: number) => {
+    let productsStorage = JSON.parse(localStorage.getItem("products") || "");
+    let clickedProduct = productsStorage[index];
+    clickedProduct.inCart = true;
+    let copy = productsStorage.slice();
+    copy[index] = clickedProduct;
+    console.log(copy);
+
+    localStorage.setItem("products", JSON.stringify(copy));
+    setProducts(copy);
   };
 
   return (
@@ -62,26 +76,28 @@ function ProductList() {
       <Title>Products</Title>
       <Section>
         {filteredProduct
-          ? filteredProduct.map((product: any) => {
+          ? filteredProduct.map((product: any, index: number) => {
               return (
-                <List key={product.id}>
-                  <Image src={product.image} alt="plant in a pot" />
-                  <h3>{product.name}</h3>
-                  <p>{product.price} kr</p>
-                  <BUTTON
-                    disabled={false}
-                    onClick={(e) => {
-                      handleAddToCart(
-                        product.id,
-                        e,
-                        product.itemsInCart,
-                        product.itemsLeft
-                      );
-                    }}
-                  >
-                    To cart
-                  </BUTTON>
-                </List>
+                <ul key={product.id}>
+                  <List>
+                    <Image src={product.image} alt="plant in a pot" />
+                    <h3>{product.name}</h3>
+                    <p>{product.price} kr</p>
+                    <BUTTON
+                      disabled={product.inCart}
+                      onClick={() => {
+                        handleAddToCart(
+                          index,
+                          product.id,
+                          product.itemsInCart,
+                          product.itemsLeft
+                        );
+                      }}
+                    >
+                      To cart
+                    </BUTTON>
+                  </List>
+                </ul>
               );
             })
           : null}

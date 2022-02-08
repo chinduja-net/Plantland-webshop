@@ -1,4 +1,5 @@
 import React from "react";
+import { ModalProvider } from "styled-react-modal";
 import "./App.css";
 import ProductList from "./components/ProductList";
 import Nav from "./components/Nav";
@@ -13,7 +14,9 @@ function App() {
         <BrowserRouter>
           <Routes>
           <Route path="/login" element={<Login />}></Route>
+       
               <Route path="/cart" element={<Cart />}></Route>
+             
             <Route
               path="/"
               element={

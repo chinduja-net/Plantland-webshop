@@ -1,19 +1,40 @@
 import React, { useContext, useEffect } from "react";
+import Modal, { ModalProvider } from "styled-react-modal";
 import { Link } from "react-router-dom";
+import styled from "styled-components";
+import { BiHomeAlt } from "react-icons/bi";
 import { ProductContext } from "../context/productProvider";
 import { PropsCart } from "../assets/props";
-import styled from "styled-components";
-import { BiHomeAlt } from "react-icons/bi"
+import { Props } from "../assets/props";
+
 import user from "../assets/users";
 
 function Cart() {
-  const { cart, setCart } = useContext(ProductContext);
+  const {
+    cart,
+    setCart,
+    setProducts,
+    isOpen,
+    setIsOpen,
+    name,
+    address,
+    setAddress,
+    setName,
+  } = useContext(ProductContext);
+
+  function toggleModal(e: any) {
+    setIsOpen(!isOpen);
+  }
+  let userCart = sessionStorage.getItem("User")
+    ? JSON.parse(sessionStorage.getItem("User") || "")[0].cart
+    : null;
+
   useEffect(() => {
     if (localStorage.getItem("cart")) {
-      let allCart = JSON.parse(localStorage.getItem("cart") || "");
+      let allCart = JSON.parse(localStorage.getItem("cart") || "") || userCart;
       setCart(allCart);
     } else return;
-  }, [setCart]);
+  }, [setCart, userCart]);
 
   const handleIncreaseCartQuantity = (
     itemsLeft: number,
@@ -22,7 +43,10 @@ function Cart() {
   ) => {
     itemsLeft -= 1;
     itemsInCart += 1;
-    let allCartItems = JSON.parse(localStorage.getItem("cart") || "");
+    let allCartItems = localStorage.getItem("cart")
+      ? JSON.parse(localStorage.getItem("cart") || "")
+      : userCart;
+    console.log(allCartItems);
     let clickedCart = allCartItems.filter((c: PropsCart) => c.id === id)[0];
 
     clickedCart.itemsInCart = itemsInCart;
@@ -32,7 +56,13 @@ function Cart() {
     let index = allCartItems.findIndex((c: PropsCart) => c.id === id);
     let updatedCart = allCartItems.slice();
     updatedCart[index] = clickedCart;
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    if (sessionStorage.getItem("Role")) {
+      user[0].cart = updatedCart;
+      sessionStorage.setItem("User", JSON.stringify(user));
+    } else {
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+    }
+
     setCart(updatedCart);
   };
 
@@ -43,7 +73,9 @@ function Cart() {
   ) => {
     itemsLeft += 1;
     itemsInCart -= 1;
-    let allCartItems = JSON.parse(localStorage.getItem("cart") || "");
+    let allCartItems = localStorage.getItem("cart")
+      ? JSON.parse(localStorage.getItem("cart") || "")
+      : userCart;
     let clickedCart = allCartItems.filter((c: PropsCart) => c.id === id)[0];
 
     clickedCart.itemsInCart = itemsInCart;
@@ -56,25 +88,75 @@ function Cart() {
     if (sessionStorage.getItem("Role")) {
       user[0].cart = updatedCart;
       sessionStorage.setItem("User", JSON.stringify(user));
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
     } else {
       localStorage.setItem("cart", JSON.stringify(updatedCart));
     }
     setCart(updatedCart);
   };
   const handleRemoveCartItem = (id: string) => {
-    let allCartItems = JSON.parse(localStorage.getItem("cart") || "");
+    let allCartItems = localStorage.getItem("cart")
+      ? JSON.parse(localStorage.getItem("cart") || "")
+      : userCart;
     let index = allCartItems.findIndex((c: PropsCart) => c.id === id);
     console.log(index);
     let updatedCart = allCartItems.slice();
     updatedCart.splice(index, 1);
     console.log(updatedCart);
-    localStorage.setItem("cart", JSON.stringify(updatedCart));
+    if (sessionStorage.getItem("Role")) {
+      user[0].cart = updatedCart;
+      sessionStorage.setItem("User", JSON.stringify(user));
+    } else {
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+    }
+
     setCart(updatedCart);
+
+    /* ------------------------------------------------------ */
+    let allProducts = JSON.parse(localStorage.getItem("products") || "");
+    let removedProduct = allProducts.filter((p: Props) => p.id === id)[0];
+    removedProduct.inCart = false;
+    console.log(removedProduct);
+    let removedIndex = allProducts.findIndex((p: Props) => p.id === id);
+    const copy = allProducts.slice();
+    copy[removedIndex] = removedProduct;
+    localStorage.setItem("products", JSON.stringify(copy));
+    setProducts(copy);
   };
   return (
     <>
-      <section></section>
+      <section>
+        {sessionStorage.getItem("Role") === "user" ? (
+          <div>
+            <p>Name :{user[0].name}</p>
+            <p>Shipping Address:{user[0].address}</p>
+          </div>
+        ) : (
+          <div>
+            <button onClick={toggleModal}>Not Registered?</button>
+
+            <ModalProvider>
+              <StyledModal isOpen={isOpen} onBackgroundClick={toggleModal}>
+                <form>
+                  <input
+                    type="text"
+                    onChange={(e) => setName(e.target.value)}
+                    placeholder="Enter Your Name.."
+                  />
+                  <textarea
+                    onChange={(e) => setAddress(e.target.value)}
+                    placeholder="Enter Your Address.."
+                  />
+                  <button onClick={toggleModal}>save me</button>
+                </form>
+                
+              </StyledModal>
+            </ModalProvider>
+            <p>{name}</p>
+            <p>{address}</p>
+          </div>
+        )}
+      </section>
+      <h3>shopping Cart</h3>
       <section>
         {cart
           ? cart.map((cartItem: PropsCart) => {
@@ -121,7 +203,9 @@ function Cart() {
             })
           : null}
       </section>
-    <Link to ="/"><BiHomeAlt/></Link>  
+      <Link to="/">
+        <BiHomeAlt />
+      </Link>
     </>
   );
 }
@@ -144,3 +228,10 @@ const Image = styled.img`
 const Span = styled.span`
   font-size: small;
 `;
+const StyledModal = Modal.styled`
+  width: 20rem;
+  height: 20rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white};`;

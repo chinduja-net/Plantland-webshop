@@ -24,6 +24,7 @@ export interface PropsUser{
   id:string,
   userName : string,
   passWord:string,
+  name:string,
   address:string,
   cart:object[],
   role:string
