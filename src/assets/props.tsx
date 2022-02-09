@@ -18,7 +18,17 @@ export interface PropsCart{
   itemsLeft:number,
   itemsInCart:number
 }
-
+export interface newProps{
+  id : string,
+  name: string,
+  image:string,
+  price:number,
+  quantity:number,
+  inCart:boolean,
+  itemsLeft:number,
+  itemsInCart:number,
+  created:string,
+}
 
 export interface PropsUser{
   id:string,

@@ -1,46 +1,50 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import {user} from "../assets/users";
-import {admin} from "../assets/users";
+import { user } from "../assets/users";
+import { admin } from "../assets/users";
 function Login() {
   const [enteredUserName, setEnteredUserName] = useState("");
   const [enteredPassWord, setEnteredPassword] = useState("");
   const navigate = useNavigate();
 
   const handleLogIn = () => {
-    if (!enteredUserName || !enteredPassWord) { 
-      window.alert("Enter userName & Password to login")
+    if (!enteredUserName || !enteredPassWord) {
+      window.alert("Enter userName & Password to login");
 
       return;
     }
 
     user.map((user) => {
       return user.userName === enteredUserName &&
-        user.passWord === enteredPassWord && user.role === 'user'
+        user.passWord === enteredPassWord &&
+        user.role === "user"
         ? success()
-        : window.alert("failed");
+        : admin.userName === enteredUserName &&
+          admin.passWord === enteredPassWord &&
+          admin.role === "admin"
+        ? navigate('/createProduct')
+        : window.alert("login Failed");
     });
-
-   if(admin.userName === enteredUserName && admin.passWord === enteredPassWord && admin.role === 'admin'){
-     navigate('/createProduct');
-   }
   };
 
+ 
   const success = () => {
     setEnteredPassword("");
     setEnteredUserName("");
     window.alert("login success");
-    localStorage.removeItem('cart')
+    localStorage.removeItem("cart");
     sessionStorage.setItem("Role", "user");
-    navigate('/')
+    navigate("/");
   };
 
   const handleLogout = () => {
-    sessionStorage.removeItem("Role")
-    sessionStorage.removeItem("User")
-    window.alert('logged out successfully!')
-  }
+    sessionStorage.removeItem("Role");
+    sessionStorage.removeItem("User");
+    localStorage.removeItem("products");
+    localStorage.removeItem("cart");
+    window.alert("logged out successfully!");
+  };
   return (
     <Form>
       <h3>LOGIN</h3>

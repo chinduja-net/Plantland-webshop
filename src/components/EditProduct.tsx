@@ -1,44 +1,46 @@
 import { useState, useEffect,useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import { newProps } from "../assets/props";
-import { nanoid } from 'nanoid'
 import { ProductContext } from "../context/productProvider";
 
-function CreateProduct() {
-  const {setProducts} = useContext(ProductContext)
+
+function EditProduct() {
+  const{editProduct} = useContext(ProductContext);
+
+  console.log(editProduct);
+  
   const navigate = useNavigate()
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState<number>(0);
-  const [quantity, setQuantity] = useState<number>(0);
+  const [name, setName] = useState(editProduct.name);
+  const [price, setPrice] = useState(editProduct.price);
+  const [quantity, setQuantity] = useState<number>(editProduct.quantity);
   const [image, setImage] = useState<Blob[]>([]);
-  const [imageURL, setImageURL] = useState<any>("");
+  const [imageURL, setImageURL] = useState<any>(editProduct.image);
 
 
 
   const newProduct: newProps = {
-    id: nanoid(),
+    id: editProduct.id,
     name: name,
     image: imageURL,
     price: price,
     quantity: quantity,
-    itemsLeft: quantity,
-    inCart: false,
-    itemsInCart: 0,
-    created:'new'
+    itemsLeft: editProduct.itemsLeft,
+    inCart: editProduct.inCart,
+    itemsInCart:editProduct.itemsInCart,
+    created:editProduct.created
   };
-  let newAddProduct: Array<object> | null = [];
-  const addProduct = () => {
-    sessionStorage.setItem('role', 'admin');
-    let products = localStorage.getItem("products");
-    if (products) {
-      newAddProduct = JSON.parse(products);
-      newAddProduct?.push(newProduct);
-      localStorage.setItem("products", JSON.stringify(newAddProduct));
+  let notAddedProduct: Array<object> | null = [];
+
+  const changeProduct = () => {
     
+    let products =JSON.parse( localStorage.getItem("products") || '');
+    if (products) {
+      notAddedProduct =(products).filter((p : newProps) => p.id !== editProduct.id)
+      notAddedProduct?.push(newProduct)
+      localStorage.setItem("products", JSON.stringify(notAddedProduct))
       
-    } else {
-      localStorage.setItem("products", JSON.stringify(newProduct));
-      
+    } else{
+      localStorage.setItem('products', JSON.stringify(newProduct))
     }
     navigate('/')
   };
@@ -56,15 +58,15 @@ function CreateProduct() {
       reader.onload = function () {
         setImageURL(reader.result);
       };
-    }, [image]);
+    }, [image]); 
   
   return (
     <div>
-      <label htmlFor="">
+       <label htmlFor="">
         Product Name
         <input
           type="text"
-          
+          value={name}
           placeholder="Enter Product Name"
           onChange={(e) => {
             setName(e.target.value);
@@ -75,7 +77,7 @@ function CreateProduct() {
         Product Price
         <input
           type="number"
-          
+          value={price}
           placeholder="Enter Product Price"
           onChange={(e) => {
             setPrice(e.target.valueAsNumber);
@@ -86,7 +88,7 @@ function CreateProduct() {
         Product Quantity
         <input
           type="number"
-       
+          value={quantity}
           placeholder="Enter Product quantity"
           onChange={(e) => {
             setQuantity(e.target.valueAsNumber);
@@ -100,9 +102,9 @@ function CreateProduct() {
         </label>
         <img src={imageURL} alt="" />
       </div>
-      <button onClick={addProduct}>Create Product</button>
+      <button onClick={changeProduct}>Edit Product</button> 
     </div>
   );
 }
 
-export default CreateProduct;
+export default EditProduct;

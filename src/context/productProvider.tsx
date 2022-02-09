@@ -1,5 +1,6 @@
 import React, { useState, createContext} from "react";
 import { Props } from "../assets/props";
+import {newProps} from '../assets/props'
 
 export interface ProviderType{
   products : Props,
@@ -20,9 +21,10 @@ export default function ProductProvider(props : any){
   const [isOpen, setIsOpen] = useState(false)
   const [name,setName] = useState<string>('')
   const [address,setAddress] = useState<string>('')
+  const [editProduct,setEditProduct] = useState<newProps>()
 
   return(
-    <ProductContext.Provider value= {{products, setProducts, cart, setCart,searchInput,setSearchInput,isOpen,setIsOpen,name,setName,address,setAddress}}>
+    <ProductContext.Provider value= {{products, setProducts, cart, setCart,searchInput,setSearchInput,isOpen,setIsOpen,name,setName,address,setAddress,editProduct,setEditProduct}}>
     {props.children}
     </ProductContext.Provider>
   )

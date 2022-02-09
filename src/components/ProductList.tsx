@@ -1,18 +1,24 @@
 import { useContext, useEffect } from "react";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { ProductContext } from "../context/productProvider";
 import productsData from "../assets/data";
-import { Props } from "../assets/props";
+import { Props, newProps } from "../assets/props";
 import {user} from "../assets/users";
 
+
+
 function ProductList() {
-  const { setProducts, products, setCart, cart, searchInput, setSearchInput } =
+  const { setProducts, products, setCart, cart, searchInput, setSearchInput,setEditProduct } =
     useContext(ProductContext);
+    const navigate = useNavigate();
 
   if (!localStorage.getItem("products")) {
     localStorage.setItem("products", JSON.stringify(productsData));
     setProducts(productsData);
   }
+
+ 
 
   useEffect(() => {
     if (localStorage.getItem("products")) {
@@ -64,7 +70,19 @@ function ProductList() {
     localStorage.setItem("products", JSON.stringify(copy));
     setProducts(copy);
   };
+const handleAdminDelete = (id : string) => {
 
+  let allProducts = JSON.parse(localStorage.getItem('products') || '')
+  let removedProduct =allProducts.filter((p : newProps) => p.id !== id)
+  localStorage.setItem('products', JSON.stringify(removedProduct))
+  setProducts(removedProduct)
+
+}
+const handleAdminEdit  = (product : newProps) => {
+  console.log(product);
+  setEditProduct(product)
+  navigate('/editProduct')
+} 
   return (
     <article>
       <Input
@@ -96,6 +114,8 @@ function ProductList() {
                     >
                       To cart
                     </BUTTON>
+                    {product.created === 'new'? <><button onClick = {  () =>handleAdminDelete(product.id)}>delete</button><button onClick = {() => handleAdminEdit(product)}>Edit</button></> : null}
+                    
                   </List>
                 </ul>
               );
@@ -103,6 +123,7 @@ function ProductList() {
           : null}
       </Section>
     </article>
+
   );
 }
 
