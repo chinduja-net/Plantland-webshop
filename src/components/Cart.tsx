@@ -7,7 +7,7 @@ import { ProductContext } from "../context/productProvider";
 import { PropsCart } from "../assets/props";
 import { Props } from "../assets/props";
 
-import user from "../assets/users";
+import {user} from "../assets/users";
 
 function Cart() {
   const {

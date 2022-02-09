@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { ProductContext } from "../context/productProvider";
 import productsData from "../assets/data";
 import { Props } from "../assets/props";
-import user from "../assets/users";
+import {user} from "../assets/users";
 
 function ProductList() {
   const { setProducts, products, setCart, cart, searchInput, setSearchInput } =

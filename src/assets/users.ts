@@ -1,6 +1,6 @@
 import { PropsUser } from "./props";
 
-const user: PropsUser[] = [
+export const user: PropsUser[] = [
   {
     id: "1",
     userName: "user",
@@ -12,4 +12,18 @@ const user: PropsUser[] = [
   }
 ];
 
-export default user;
+
+
+interface adminProps{
+  userName : string,
+  passWord : string,
+  name :string,
+  role : string,
+}
+
+export const admin : adminProps = {
+  userName : "admin",
+  passWord : "admin123",
+  name :"administrator",
+  role : "admin"
+}

@@ -1,7 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import user from "../assets/users";
+import {user} from "../assets/users";
+import {admin} from "../assets/users";
 function Login() {
   const [enteredUserName, setEnteredUserName] = useState("");
   const [enteredPassWord, setEnteredPassword] = useState("");
@@ -16,10 +17,14 @@ function Login() {
 
     user.map((user) => {
       return user.userName === enteredUserName &&
-        user.passWord === enteredPassWord
+        user.passWord === enteredPassWord && user.role === 'user'
         ? success()
         : window.alert("failed");
     });
+
+   if(admin.userName === enteredUserName && admin.passWord === enteredPassWord && admin.role === 'admin'){
+     navigate('/createProduct');
+   }
   };
 
   const success = () => {
