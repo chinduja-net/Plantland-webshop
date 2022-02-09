@@ -1,46 +1,33 @@
-# Getting Started with Create React App
+An online Webshop application created as an assignment for the testing course in my frontend Development education. Developed with Typescript, React and styled by 'styled-components' and tested with Jest for the frontend.<br><br>
+<br>
+<br>
+<hr>
+**USER STORIES**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1.As an ordinary user, I can see the products available so I can decide if they have the product i'm looking for.
 
-## Available Scripts
+2.As an ordinary user, I can search for products using keywords so I don't need to scroll the webpage and look for the product.
 
-In the project directory, you can run:
+3.As an ordinary user, I can add products to the cart so that I can buy the product.
 
-### `npm start`
+4.As an ordinary user, I can increase the quantity of items in the cart so that I can buy more than one number of each product
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+5.As an ordinary user, I can decrease the quantity of items in the cart so that I can edit the quantity of the added product.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+6.As an ordinary user, I can remove the products in the cart, If i decide not to make any purchase.
 
-### `npm test`
+7.As an ordinary user, I can checkout as a guest, without logging in so I don't have to create an account to make the purchase.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+8.As a registered user, I can login using my userName and password, so that my personal information will be always saved.
 
-### `npm run build`
+9.As a registered user, I can search for products and add products to my cart so that I can make the purchases
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+10.As a registered user, I can increase/decrease cart quantity so that I can edit my products in the cart .
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+11.As a registered user, I can remove one or more product from the cart, if i decide not to continue the payment.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+12.As an administrator, I can add new products to the application, so I can make add more products to the webshop.
 
-### `npm run eject`
+13.As an administrator, I can edit the products, So I can make changes in the quantity of products.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+14.As an administrator, I can delete the products, so I can remove the products if it is not in stock.
