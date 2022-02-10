@@ -47,7 +47,7 @@ function Login() {
   };
   return (
     <Form>
-      <h3>LOGIN</h3>
+      <Title>LOGIN</Title>
       <Label htmlFor="">username</Label>
       <Input
         type="text"
@@ -60,8 +60,12 @@ function Login() {
         placeholder="passWord"
         onChange={(e) => setEnteredPassword(e.target.value)}
       />
+      <Div>
       <Button onClick={handleLogIn}>SIGN IN</Button>
       <Button onClick={handleLogout}>SIGN OUT</Button>
+
+      </Div>
+     
     </Form>
   );
 }
@@ -69,12 +73,17 @@ function Login() {
 export default Login;
 
 const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 300px;
-  border: 1px solid white;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  
+`;
+const Title = styled.h2`
+  font-size: 1.5em;
+  text-align: center;
+  color:#3A6B35;
+  text-transform: uppercase;
 `;
 const Label = styled.label`
   font-size: 1rem;
@@ -83,4 +92,21 @@ const Label = styled.label`
 const Input = styled.input`
   width: 200px;
 `;
-const Button = styled.button``;
+const Button = styled.button`
+ font-size: 0.7rem;
+  text-align: center;
+  text-transform:uppercase;
+  display: inline-block;
+  background-color: #CBD18F;
+  width: max-content;
+  border-radius:3px;
+  border: 1.5px solid #3a6b35;
+  cursor: pointer;
+`;
+const Div = styled.div`
+display:flex;
+justify-content: space-around;
+align-items:center;
+
+
+`

@@ -7,7 +7,7 @@ import { ProductContext } from "../context/productProvider";
 import { PropsCart } from "../assets/props";
 import { Props } from "../assets/props";
 
-import {user} from "../assets/users";
+import { user } from "../assets/users";
 
 function Cart() {
   const {
@@ -123,8 +123,8 @@ function Cart() {
     setProducts(copy);
   };
   return (
-    <>
-      <section>
+    <Article>
+      <Wrapper>
         {sessionStorage.getItem("Role") === "user" ? (
           <div>
             <p>Name :{user[0].name}</p>
@@ -132,11 +132,11 @@ function Cart() {
           </div>
         ) : (
           <div>
-            <button onClick={toggleModal}>Not Registered?</button>
+            <Button onClick={toggleModal}>Not Registered?</Button>
 
             <ModalProvider>
               <StyledModal isOpen={isOpen} onBackgroundClick={toggleModal}>
-                <form>
+                <Form>
                   <input
                     type="text"
                     onChange={(e) => setName(e.target.value)}
@@ -146,72 +146,98 @@ function Cart() {
                     onChange={(e) => setAddress(e.target.value)}
                     placeholder="Enter Your Address.."
                   />
-                  <button onClick={toggleModal}>save me</button>
-                </form>
-                
+                  <Button onClick={toggleModal}>save</Button>
+                </Form>
               </StyledModal>
             </ModalProvider>
-            <p>{name}</p>
-            <p>{address}</p>
+            <Div>
+              <p>{name}</p>
+              <p>{address}</p>
+            </Div>
           </div>
         )}
-      </section>
-      <h3>shopping Cart</h3>
-      <section>
+      </Wrapper>
+      <Heading>shopping Cart</Heading>
+      <Cartsection>
         {cart
           ? cart.map((cartItem: PropsCart) => {
               return (
                 <List key={cartItem.id}>
                   <Image src={cartItem.image} />
                   <Para>{cartItem.name}</Para>
-                  <Button
-                    disabled={cartItem.itemsLeft === 0}
-                    onClick={() =>
-                      handleIncreaseCartQuantity(
-                        cartItem.itemsLeft,
-                        cartItem.id,
-                        cartItem.itemsInCart
-                      )
-                    }
-                  >
-                    +
-                  </Button>
-                  <Span>{cartItem.itemsInCart} </Span>
-                  <Button
-                    disabled={cartItem.itemsLeft === 10}
-                    onClick={() =>
-                      handleDecreaseCartQuantity(
-                        cartItem.itemsLeft,
-                        cartItem.id,
-                        cartItem.itemsInCart
-                      )
-                    }
-                  >
-                    -
-                  </Button>
                   <div>
-                    <Para>
-                      {cartItem.price} x {cartItem.itemsInCart}{" "}
-                      {cartItem.price * cartItem.itemsInCart}{" "}
-                    </Para>
+                    <Button
+                      disabled={cartItem.itemsLeft === 0}
+                      onClick={() =>
+                        handleIncreaseCartQuantity(
+                          cartItem.itemsLeft,
+                          cartItem.id,
+                          cartItem.itemsInCart
+                        )
+                      }
+                    >
+                      +
+                    </Button>
+                    <Span>{cartItem.itemsInCart} </Span>
+                    <Button
+                      disabled={cartItem.itemsLeft === 10}
+                      onClick={() =>
+                        handleDecreaseCartQuantity(
+                          cartItem.itemsLeft,
+                          cartItem.id,
+                          cartItem.itemsInCart
+                        )
+                      }
+                    >
+                      -
+                    </Button>
                   </div>
+                  <Para>{cartItem.itemsLeft} left</Para>
                   <Button onClick={() => handleRemoveCartItem(cartItem.id)}>
-                    remove
+                    x
                   </Button>
+
+                  <Para>{cartItem.price} kr</Para>
+                  <Para>{cartItem.price * cartItem.itemsInCart} kr</Para>
                 </List>
               );
             })
           : null}
-      </section>
+      </Cartsection>
       <Link to="/">
         <BiHomeAlt />
       </Link>
-    </>
+    </Article>
   );
 }
 
 export default Cart;
+
+const Heading = styled.h3`
+  text-transform: uppercase;
+  color: #3a6b35;
+`;
+
+const Article = styled.article`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Wrapper = styled.section``;
+const Cartsection = styled.section``;
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+`;
+
 const List = styled.li`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
   list-style-type: none;
 `;
 const Para = styled.p`
@@ -228,10 +254,14 @@ const Image = styled.img`
 const Span = styled.span`
   font-size: small;
 `;
+
+const Div = styled.div``;
 const StyledModal = Modal.styled`
   width: 20rem;
-  height: 20rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: white};`;
+  height: 10rem;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:10%;
+  background-color: #a5a1a1;`;

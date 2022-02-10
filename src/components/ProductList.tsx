@@ -89,7 +89,7 @@ const handleAdminEdit  = (product : newProps) => {
         type="search"
         value={searchInput}
         onChange={(e) => setSearchInput(e.target.value)}
-        placeholder="Search for products"
+        placeholder="Search for products..."
       />
       <Title>Products</Title>
       <Section>
@@ -130,19 +130,23 @@ const handleAdminEdit  = (product : newProps) => {
 export default ProductList;
 
 const Input = styled.input`
-  width: 300px;
+  width: 400px;
 `;
 
 const Title = styled.h2`
   font-size: 1.5em;
   text-align: center;
-  color: #628a63;
+  color:#3A6B35;
+  text-transform: uppercase;
 `;
 
 const Image = styled.img`
   height: 250px;
   width: 150px;
-  box-shadow: 1px 1px #628a63;
+  box-shadow: 1px 1px #3A6B35;
+  &:hover {
+   
+  }
 `;
 const Section = styled.section`
   display: grid;
@@ -157,8 +161,16 @@ const List = styled.li`
 const BUTTON = styled.button`
   font-size: 0.7rem;
   text-align: center;
-  text-decoration: none;
+  text-transform:uppercase;
   display: inline-block;
-  background-color: #4caf50;
+  background-color: #CBD18F;
   width: max-content;
+  border-radius:3px;
+  border: 1.5px solid #3a6b35;
+  cursor: pointer;
+  &:disabled {
+    background-color: #b8a7a7;
+    opacity: 0.7;
+    cursor: default;
+  }
 `;
