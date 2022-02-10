@@ -169,7 +169,7 @@ const BUTTON = styled.button`
   border: 1.5px solid #3a6b35;
   cursor: pointer;
   &:disabled {
-    background-color: #b8a7a7;
+    background-color:#b8a7a7;
     opacity: 0.7;
     cursor: default;
   }

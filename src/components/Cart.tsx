@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Modal, { ModalProvider } from "styled-react-modal";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -21,6 +21,7 @@ function Cart() {
     setAddress,
     setName,
   } = useContext(ProductContext);
+  const [totalPrice, setTotalPrice] = useState<Number>(0);
 
   function toggleModal(e: any) {
     setIsOpen(!isOpen);
@@ -36,6 +37,23 @@ function Cart() {
     } else return;
   }, [setCart, userCart]);
 
+  useEffect(() => {
+    addCartValue();
+  });
+
+  const addCartValue = () => {
+    if (cart.length > 0) {
+        const subTotal: Array<number> = cart.map((c: PropsCart) => {
+        return c.price * c.itemsInCart;
+      });
+
+      let sum = 0;
+      for (let i = 0; i < subTotal.length; i++) {
+        sum += subTotal[i];
+      }
+      setTotalPrice(sum);
+    }
+  };
   const handleIncreaseCartQuantity = (
     itemsLeft: number,
     id: string,
@@ -122,6 +140,7 @@ function Cart() {
     localStorage.setItem("products", JSON.stringify(copy));
     setProducts(copy);
   };
+
   return (
     <Article>
       <Wrapper>
@@ -203,6 +222,7 @@ function Cart() {
               );
             })
           : null}
+        <Para>Total : {totalPrice}</Para>
       </Cartsection>
       <Link to="/">
         <BiHomeAlt />
@@ -221,24 +241,28 @@ const Heading = styled.h3`
 const Article = styled.article`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 `;
 
 const Wrapper = styled.section``;
-const Cartsection = styled.section``;
+
 const Form = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
 `;
-
+const Cartsection = styled.section`
+  border: 1px dashed #3a6b35;
+  border-radius: 5px;
+  width: 700px;
+  padding: 10px;
+`;
 const List = styled.li`
   display: flex;
   justify-content: space-evenly;
   align-items: center;
   list-style-type: none;
+  padding: 5px;
 `;
 const Para = styled.p`
   font-size: 0.8rem;
@@ -249,6 +273,7 @@ const Button = styled.button`
 const Image = styled.img`
   height: 50px;
   width: 50px;
+  box-shadow: 1px 1px #3a6b35;
 `;
 
 const Span = styled.span`
