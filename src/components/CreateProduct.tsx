@@ -28,7 +28,7 @@ function CreateProduct() {
   };
   let newAddProduct: Array<object> | null = [];
   const addProduct = () => {
-    sessionStorage.setItem('role', 'admin');
+    sessionStorage.setItem('Role','admin');
     let products = localStorage.getItem("products");
     if (products) {
       newAddProduct = JSON.parse(products);

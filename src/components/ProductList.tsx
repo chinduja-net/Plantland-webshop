@@ -53,6 +53,7 @@ function ProductList() {
     if (sessionStorage.getItem("Role")) {
       user[0].cart = updatedCart;
       sessionStorage.setItem("User", JSON.stringify(user));
+      localStorage.setItem("cart", JSON.stringify(updatedCart))
     } else {
       localStorage.setItem("cart", JSON.stringify(updatedCart));
     }
@@ -114,7 +115,7 @@ const handleAdminEdit  = (product : newProps) => {
                     >
                       To cart
                     </BUTTON>
-                    {product.created === 'new'? <><button onClick = {  () =>handleAdminDelete(product.id)}>delete</button><button onClick = {() => handleAdminEdit(product)}>Edit</button></> : null}
+                    {product.created === 'new'? <><BUTTON onClick = {  () =>handleAdminDelete(product.id)}>delete</BUTTON><BUTTON onClick = {() => handleAdminEdit(product)}>Edit</BUTTON></> : null}
                     
                   </List>
                 </ul>
@@ -130,7 +131,8 @@ const handleAdminEdit  = (product : newProps) => {
 export default ProductList;
 
 const Input = styled.input`
-  width: 400px;
+  width: 500px;
+  
 `;
 
 const Title = styled.h2`

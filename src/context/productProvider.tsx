@@ -17,6 +17,7 @@ export default function ProductProvider(props : any){
   const [products, setProducts] = useState<Props | []>([])
  
   const [cart, setCart] = useState<Props | []>([])
+  const [counter,setCounter] = useState<number>(0)
   const [searchInput, setSearchInput] = useState<string>("");
   const [isOpen, setIsOpen] = useState(false)
   const [name,setName] = useState<string>('')
@@ -24,7 +25,7 @@ export default function ProductProvider(props : any){
   const [editProduct,setEditProduct] = useState<newProps>()
 
   return(
-    <ProductContext.Provider value= {{products, setProducts, cart, setCart,searchInput,setSearchInput,isOpen,setIsOpen,name,setName,address,setAddress,editProduct,setEditProduct}}>
+    <ProductContext.Provider value= {{products, setProducts, cart, setCart,searchInput,setSearchInput,isOpen,setIsOpen,name,setName,address,setAddress,editProduct,setEditProduct,counter,setCounter}}>
     {props.children}
     </ProductContext.Provider>
   )

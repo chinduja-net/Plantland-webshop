@@ -44,20 +44,21 @@ function Login() {
     localStorage.removeItem("products");
     localStorage.removeItem("cart");
     window.alert("logged out successfully!");
+    navigate("/");
   };
   return (
     <Form>
-      <Title>LOGIN</Title>
+      <Title>USER LOGIN</Title>
       <Label htmlFor="">username</Label>
       <Input
         type="text"
-        placeholder="userName"
+        placeholder="username"
         onChange={(e) => setEnteredUserName(e.target.value)}
       />
       <Label htmlFor="">Password</Label>
       <Input
         type="password"
-        placeholder="passWord"
+        placeholder="password"
         onChange={(e) => setEnteredPassword(e.target.value)}
       />
       <Div>
@@ -77,6 +78,9 @@ const Form = styled.form`
   flex-direction:column;
   justify-content:center;
   align-items:center;
+  width:400px;
+  height:500px;
+  border: 1px dashed #3a6b35;
   
 `;
 const Title = styled.h2`
@@ -86,11 +90,13 @@ const Title = styled.h2`
   text-transform: uppercase;
 `;
 const Label = styled.label`
-  font-size: 1rem;
+  display:flex;
+  font-size: 0.8rem;
+  text-transform:uppercase;
   width: 200px;
 `;
 const Input = styled.input`
-  width: 200px;
+  width: 300px;
 `;
 const Button = styled.button`
  font-size: 0.7rem;
@@ -98,15 +104,16 @@ const Button = styled.button`
   text-transform:uppercase;
   display: inline-block;
   background-color: #CBD18F;
-  width: max-content;
   border-radius:3px;
   border: 1.5px solid #3a6b35;
   cursor: pointer;
+  width: 100px;
 `;
 const Div = styled.div`
 display:flex;
-justify-content: space-around;
+width:300px;
+justify-content:space-evenly;
 align-items:center;
-
+margin:10px;
 
 `
