@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import Modal, { ModalProvider } from "styled-react-modal";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-
 import { Home } from "@styled-icons/heroicons-solid";
 import { ProductContext } from "../context/productProvider";
 import { PropsCart } from "../assets/props";
@@ -26,23 +25,22 @@ function Cart() {
   function toggleModal(e: any) {
     setIsOpen(!isOpen);
   }
- 
-  let userCart  = sessionStorage.getItem("User")
-  ? JSON.parse(sessionStorage.getItem("User") || "")[0].cart
-  : null;
+
+  let userCart = sessionStorage.getItem("User")
+    ? JSON.parse(sessionStorage.getItem("User") || "")[0].cart
+    : null;
   useEffect(() => {
-    
     if (localStorage.getItem("cart")) {
-      let allCart = JSON.parse(localStorage.getItem("cart") || "") || userCart
+      let allCart = JSON.parse(localStorage.getItem("cart") || "") || userCart;
       setCart(allCart);
     } else return;
   }, []);
 
   useEffect(() => {
-    addCartValue(); 
+    addCartValue();
   });
 
- const addCartValue = () => {
+  const addCartValue = () => {
     if (cart.length > 0) {
       const subTotal: Array<number> = cart.map((c: PropsCart) => {
         return c.price * c.itemsInCart;
@@ -54,7 +52,7 @@ function Cart() {
       }
       setTotalPrice(sum);
     }
-  }; 
+  };
   const handleIncreaseCartQuantity = (
     itemsLeft: number,
     id: string,
@@ -78,7 +76,7 @@ function Cart() {
     if (sessionStorage.getItem("Role")) {
       user[0].cart = updatedCart;
       sessionStorage.setItem("User", JSON.stringify(user));
-      localStorage.setItem("cart", JSON.stringify(updatedCart))
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
     } else {
       localStorage.setItem("cart", JSON.stringify(updatedCart));
     }
@@ -126,7 +124,7 @@ function Cart() {
     if (sessionStorage.getItem("Role")) {
       user[0].cart = updatedCart;
       sessionStorage.setItem("User", JSON.stringify(user));
-      localStorage.setItem("cart", JSON.stringify(updatedCart))
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
     } else {
       localStorage.setItem("cart", JSON.stringify(updatedCart));
     }
@@ -149,10 +147,10 @@ function Cart() {
     <Article>
       <Wrapper>
         {sessionStorage.getItem("Role") === "user" ? (
-          <div>
+          <Addressdiv>
             <p>Name :{user[0].name}</p>
             <p>Shipping Address:{user[0].address}</p>
-          </div>
+          </Addressdiv>
         ) : (
           <div>
             <Button onClick={toggleModal}>Not Registered?</Button>
@@ -226,15 +224,11 @@ function Cart() {
               );
             })
           : null}
-         <Para>Total : {totalPrice}</Para> 
+        <Para>Total : {totalPrice}</Para>
       </Cartsection>
       <Div>
         <Link to="/">
-          <Home
-            size="32"
-            color="#3a6b35"
-            
-          />
+          <Home size="32" color="#3a6b35" />
         </Link>
       </Div>
     </Article>
@@ -291,20 +285,19 @@ const Span = styled.span`
 `;
 
 const Div = styled.div`
-display:flex;
-width:80%;
-justify-content:flex-end;
-justify-items:space-evenly;
-align-items:center;
-margin-top:15px;
-
+  display: flex;
+  width: 80%;
+  justify-content: flex-end;
+  justify-items: space-evenly;
+  align-items: center;
+  margin-top: 15px;
 `;
 
 const Addressdiv = styled.div`
-font-size: 0.8rem;
-
-
-`
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  box-shadow: 0.5px 0.5px 5px #3a6b35;
+`;
 
 const StyledModal = Modal.styled`
   width: 20rem;

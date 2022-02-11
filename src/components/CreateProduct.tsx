@@ -1,5 +1,6 @@
 import { useState, useEffect,useContext} from "react";
 import { useNavigate } from "react-router-dom";
+import styled from "styled-components"
 import { newProps } from "../assets/props";
 import { nanoid } from 'nanoid'
 import { ProductContext } from "../context/productProvider";
@@ -59,10 +60,11 @@ function CreateProduct() {
     }, [image]);
   
   return (
-    <div>
-      <label htmlFor="">
-        Product Name
-        <input
+    <Form>
+      <Title>ADD NEW PRODUCT</Title>
+      <Label htmlFor="">
+        Product Name </Label>
+        <Input
           type="text"
           
           placeholder="Enter Product Name"
@@ -70,10 +72,10 @@ function CreateProduct() {
             setName(e.target.value);
           }}
         />
-      </label>
-      <label htmlFor="">
-        Product Price
-        <input
+     
+      <Label htmlFor="">
+        Product Price </Label>
+        <Input
           type="number"
           
           placeholder="Enter Product Price"
@@ -81,10 +83,10 @@ function CreateProduct() {
             setPrice(e.target.valueAsNumber);
           }}
         />
-      </label>
-      <label htmlFor="">
-        Product Quantity
-        <input
+     
+      <Label htmlFor="">
+        Product Quantity  </Label>
+        <Input
           type="number"
        
           placeholder="Enter Product quantity"
@@ -92,17 +94,69 @@ function CreateProduct() {
             setQuantity(e.target.valueAsNumber);
           }}
         />
-      </label>
-      <div>
-        <label>
-          Select image:{" "}
-          <input type="file" accept="image/*" onChange={uploadImage} />
-        </label>
-        <img src={imageURL} alt="" />
-      </div>
-      <button onClick={addProduct}>Create Product</button>
-    </div>
+    
+     
+        <Label>
+          Select image:{" "}  </Label>
+          <Input type="file" accept="image/*" onChange={uploadImage} />
+          <Div>
+        <Image src={imageURL} alt="" />
+      
+      <Button onClick={addProduct}>Create Product</Button>
+      </Div>
+    </Form>
   );
 }
 
 export default CreateProduct;
+const Div = styled.div`
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+  width: 400px;
+
+`
+const Form = styled.form`
+display:flex;
+flex-direction:column;
+width:400px;
+`
+const Button = styled.button`
+ font-size: 0.7rem;
+  text-align: center;
+  text-transform:uppercase;
+  display: inline-block;
+  background-color: #CBD18F;
+  border-radius:3px;
+  border: 1.5px solid #3a6b35;
+  cursor: pointer;
+  width: 200px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+`;
+
+const Label = styled.label`
+  display:flex;
+  font-size: 0.8rem;
+  text-transform:uppercase;
+  width: 200px;
+`;
+
+const Title = styled.h3`
+  font-size: 1.2em;
+  text-align: center;
+  color:#3A6B35;
+  text-transform: uppercase;
+`;
+const Input = styled.input`
+width:400px;
+
+`
+
+const Image = styled.img`
+width:300px;
+height:300px;
+
+`

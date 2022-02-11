@@ -1,5 +1,6 @@
 import { useContext, useEffect } from "react";
 import styled from "styled-components";
+import {Search} from '@styled-icons/heroicons-outline'
 import { useNavigate } from "react-router-dom";
 import { ProductContext } from "../context/productProvider";
 import productsData from "../assets/data";
@@ -86,12 +87,16 @@ const handleAdminEdit  = (product : newProps) => {
 } 
   return (
     <article>
+      
+     
       <Input
         type="search"
         value={searchInput}
         onChange={(e) => setSearchInput(e.target.value)}
         placeholder="Search for products..."
+        
       />
+    
       <Title>Products</Title>
       <Section>
         {filteredProduct
@@ -100,8 +105,8 @@ const handleAdminEdit  = (product : newProps) => {
                 <ul key={product.id}>
                   <List>
                     <Image src={product.image} alt="plant in a pot" />
-                    <h3>{product.name}</h3>
-                    <p>{product.price} kr</p>
+                    <Name>{product.name}</Name>
+                    <Name>{product.price} kr</Name>
                     <BUTTON
                       disabled={product.inCart}
                       onClick={() => {
@@ -130,10 +135,28 @@ const handleAdminEdit  = (product : newProps) => {
 
 export default ProductList;
 
+const Name = styled.h3`
+ text-transform: uppercase;
+`
+
 const Input = styled.input`
-  width: 500px;
-  
-`;
+  width:500px;
+  border: 1px solid grey;
+    border-radius: 5px;
+    height: 20px;
+  padding: 2px 23px 2px 30px;
+    outline: 0;
+    background-color: #f5f5f5;
+  &:focus {
+    border: 1.5px solid #3A6B35;
+    background-color: white;
+  }
+  &:hover {
+    border: 1.5px solid #3A6B35;
+    background-color: white;
+  }`;
+
+ 
 
 const Title = styled.h2`
   font-size: 1.5em;
@@ -144,8 +167,8 @@ const Title = styled.h2`
 
 const Image = styled.img`
   height: 250px;
-  width: 150px;
-  box-shadow: 1px 1px #3A6B35;
+  width: 250px;
+  /* box-shadow: 1px 1px #3A6B35; */
   &:hover {
    
   }
@@ -155,9 +178,14 @@ const Section = styled.section`
   justify-content: center;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 30px;
+ 
 `;
 const List = styled.li`
   list-style-type: none;
+ 
+  box-shadow: 0.5px 0.5px 3px #3A6B35;
+  width:300px;
+  padding:10px;
 `;
 
 const BUTTON = styled.button`
