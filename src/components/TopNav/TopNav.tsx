@@ -13,13 +13,20 @@ function Nav() {
     window.alert("logged out successfully!");
   };
 
+  const handleAdminLogout = () => {
+
+    sessionStorage.removeItem("Role");
+    localStorage.removeItem("products");
+  }
+
   return (
     <Div>
+      
       <Link to="/login">
         {sessionStorage.getItem("Role") === "user" ? (
           <Button onClick={handleLogout}>LOGOUT</Button>
         ) : (
-          <Button>LOGIN</Button>
+          <Button data-testid ="login">USER LOGIN</Button>
         )}
       </Link>
       <Link to="/cart">
@@ -27,10 +34,13 @@ function Nav() {
           size="24"
           style={{
             color: "#3A6B35",
-            padding: "0 0 0 45px",
+            margin: "0 7px 0 7px",
           }}
         />
       </Link>
+     
+      <Link to = "/login">{ sessionStorage.getItem('Role') === "admin" ? <Button onClick={handleAdminLogout}>ADMIN LOGOUT</Button> :
+        <Button>ADMIN LOGIN</Button>}</Link>
     </Div>
   );
 }
@@ -51,7 +61,6 @@ const Button = styled.button`
   text-transform:uppercase;
   display: inline-block;
   background-color: #CBD18F;
-  padding-left: 10px;
   width: max-content;
   border-radius:3px;
   border: 1.5px solid #3a6b35;

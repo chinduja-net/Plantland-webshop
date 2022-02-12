@@ -1,11 +1,10 @@
 import { useContext, useEffect } from "react";
 import styled from "styled-components";
-import {Search} from '@styled-icons/heroicons-outline'
 import { useNavigate } from "react-router-dom";
-import { ProductContext } from "../context/productProvider";
-import productsData from "../assets/data";
-import { Props, newProps } from "../assets/props";
-import {user} from "../assets/users";
+import { ProductContext } from "../../context/productProvider";
+import productsData from "../../assets/data";
+import { Props, newProps } from "../../assets/props";
+import {user} from "../../assets/users";
 
 
 
@@ -40,7 +39,7 @@ function ProductList() {
     itemsInCart: number,
     itemsLeft: number
   ) => {
-    handleDisable(index);
+    handleDisable(id);
     itemsLeft -= 1;
     itemsInCart += 1;
     const cartProduct = products.filter(
@@ -61,16 +60,18 @@ function ProductList() {
 
     setCart(updatedCart);
   };
-  const handleDisable = (index: number) => {
-    let productsStorage = JSON.parse(localStorage.getItem("products") || "");
-    let clickedProduct = productsStorage[index];
+  const handleDisable = (id: string) => {
+   
+   let productsStorage = JSON.parse(localStorage.getItem("products") || "");
+    let clickedProduct = productsStorage.filter((p : Props) => p.id === id)[0]
     clickedProduct.inCart = true;
-    let copy = productsStorage.slice();
-    copy[index] = clickedProduct;
-    console.log(copy);
-
-    localStorage.setItem("products", JSON.stringify(copy));
-    setProducts(copy);
+    console.log(clickedProduct)
+    let index = productsStorage.findIndex((p:Props) => p.id === id)
+    console.log(index);
+    productsStorage[index] = clickedProduct
+    
+  localStorage.setItem("products", JSON.stringify(productsStorage));
+    setProducts(productsStorage);  
   };
 const handleAdminDelete = (id : string) => {
 

@@ -1,12 +1,10 @@
 import { useContext, useEffect, useState } from "react";
 import Modal, { ModalProvider } from "styled-react-modal";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Home } from "@styled-icons/heroicons-solid";
-import { ProductContext } from "../context/productProvider";
-import { PropsCart } from "../assets/props";
-import { Props } from "../assets/props";
-import { user } from "../assets/users";
+import { ProductContext } from "../../context/productProvider";
+import BottomNav from "../BottomNav/BottomNav"
+import { PropsCart,Props } from "../../assets/props";
+import { user } from "../../assets/users";
 
 function Cart() {
   const {
@@ -51,6 +49,8 @@ function Cart() {
         sum += subTotal[i];
       }
       setTotalPrice(sum);
+    }else{
+      setTotalPrice(0)
     }
   };
   const handleIncreaseCartQuantity = (
@@ -158,12 +158,12 @@ function Cart() {
             <ModalProvider>
               <StyledModal isOpen={isOpen} onBackgroundClick={toggleModal}>
                 <Form>
-                  <input
+                  <Input
                     type="text"
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Enter Your Name.."
                   />
-                  <textarea
+                  <TextArea
                     onChange={(e) => setAddress(e.target.value)}
                     placeholder="Enter Your Address.."
                   />
@@ -187,7 +187,7 @@ function Cart() {
                   <Image src={cartItem.image} />
                   <Para>{cartItem.name}</Para>
                   <div>
-                    <Button
+                    <Button data-testid = "increaseCart"
                       disabled={cartItem.itemsLeft === 0}
                       onClick={() =>
                         handleIncreaseCartQuantity(
@@ -226,12 +226,8 @@ function Cart() {
           : null}
         <Para>Total : {totalPrice}</Para>
       </Cartsection>
-      <Div>
-        <Link to="/">
-          <Home size="32" color="#3a6b35" />
-        </Link>
-      </Div>
-    </Article>
+      <BottomNav/>
+         </Article>
   );
 }
 
@@ -272,8 +268,15 @@ const Para = styled.p`
   font-size: 0.8rem;
 `;
 const Button = styled.button`
-  font-size: 0.8rem;
-`;
+  font-size: 0.7rem;
+  text-align: center;
+  text-transform: uppercase;
+  display: inline-block;
+  background-color: #cbd18f;
+  border-radius: 3px;
+  border: 1.5px solid #3a6b35;
+  cursor: pointer;
+  `;
 const Image = styled.img`
   height: 50px;
   width: 50px;
@@ -284,20 +287,17 @@ const Span = styled.span`
   font-size: small;
 `;
 
-const Div = styled.div`
-  display: flex;
-  width: 80%;
-  justify-content: flex-end;
-  justify-items: space-evenly;
-  align-items: center;
-  margin-top: 15px;
-`;
-
 const Addressdiv = styled.div`
   font-size: 0.8rem;
   text-transform: uppercase;
   box-shadow: 0.5px 0.5px 5px #3a6b35;
 `;
+const Input = styled.input`
+  width: 200px;
+`;
+const TextArea = styled.textarea`
+  width: 200px;
+`
 
 const StyledModal = Modal.styled`
   width: 20rem;

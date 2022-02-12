@@ -1,13 +1,14 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { newProps } from "../assets/props";
-import { ProductContext } from "../context/productProvider";
+import BottomNav from "../BottomNav/BottomNav";
+import { newProps } from "../../assets/props";
+import { ProductContext } from "../../context/productProvider";
 
 function EditProduct() {
   const { editProduct } = useContext(ProductContext);
 
-  console.log(editProduct);
+  console.log(editProduct); 
 
   const navigate = useNavigate();
   const [name, setName] = useState(editProduct.name);
@@ -15,7 +16,7 @@ function EditProduct() {
   const [quantity, setQuantity] = useState<number>(editProduct.quantity);
   const [image, setImage] = useState<Blob[]>([]);
   const [imageURL, setImageURL] = useState<any>(editProduct.image);
-
+ 
   const newProduct: newProps = {
     id: editProduct.id,
     name: name,
@@ -59,6 +60,7 @@ function EditProduct() {
   }, [image]);
 
   return (
+    <>
     <Form>
       <Title>Edit product</Title>
       <Label htmlFor="">Product Name </Label>
@@ -100,6 +102,8 @@ function EditProduct() {
         <Button onClick={changeProduct}>Edit Product</Button>
       </Div>
     </Form>
+    <BottomNav />
+    </>
   );
 }
 

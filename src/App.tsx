@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import ProductList from "./components/ProductList";
-import Nav from "./components/Nav";
-import Cart from "./components/Cart";
-import Login from "./components/Login";
-import CreateProduct from "./components/CreateProduct";
-import EditProduct from "./components/EditProduct";
+import ProductList from "./components/Productlist/ProductList";
+import Nav from "./components/TopNav/TopNav";
+import Cart from "./components/Cart/Cart";
+import Login from "./components/Login/Login";
+import CreateProduct from "./components/CreateProduct/CreateProduct";
+import EditProduct from "./components/Editproduct/EditProduct";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {

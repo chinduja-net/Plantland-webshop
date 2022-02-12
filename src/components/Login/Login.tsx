@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { user } from "../assets/users";
-import { admin } from "../assets/users";
+import { user, admin} from "../../assets/users";
+import BottomNav from "../BottomNav/BottomNav";
 function Login() {
   const [enteredUserName, setEnteredUserName] = useState("");
   const [enteredPassWord, setEnteredPassword] = useState("");
@@ -47,6 +47,7 @@ function Login() {
     navigate("/");
   };
   return (
+    <>
     <Form>
       <Title>USER LOGIN</Title>
       <Label htmlFor="">username</Label>
@@ -62,12 +63,14 @@ function Login() {
         onChange={(e) => setEnteredPassword(e.target.value)}
       />
       <Div>
-      <Button onClick={handleLogIn}>SIGN IN</Button>
+      <Button disabled = {!enteredUserName || !enteredPassWord } onClick={handleLogIn}>SIGN IN</Button>
       <Button onClick={handleLogout}>SIGN OUT</Button>
 
       </Div>
      
     </Form>
+    <BottomNav/>
+    </>
   );
 }
 

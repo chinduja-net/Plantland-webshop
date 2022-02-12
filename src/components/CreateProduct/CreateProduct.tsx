@@ -1,9 +1,9 @@
 import { useState, useEffect,useContext} from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components"
-import { newProps } from "../assets/props";
+import { newProps } from "../../assets/props";
 import { nanoid } from 'nanoid'
-import { ProductContext } from "../context/productProvider";
+import { ProductContext } from "../../context/productProvider";
 
 function CreateProduct() {
   const {setProducts} = useContext(ProductContext)
@@ -98,7 +98,7 @@ function CreateProduct() {
      
         <Label>
           Select image:{" "}  </Label>
-          <Input type="file" accept="image/*" onChange={uploadImage} />
+          <Input type="file"  accept="image/*" onChange={uploadImage} />
           <Div>
         <Image src={imageURL} alt="" />
       
