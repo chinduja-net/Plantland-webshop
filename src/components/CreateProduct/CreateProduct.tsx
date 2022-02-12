@@ -100,7 +100,7 @@ function CreateProduct() {
           Select image:{" "}  </Label>
           <Input type="file"  accept="image/*" onChange={uploadImage} />
           <Div>
-        <Image src={imageURL} alt="" />
+        <Image src={imageURL} alt="plant in a pot" />
       
       <Button onClick={addProduct}>Create Product</Button>
       </Div>

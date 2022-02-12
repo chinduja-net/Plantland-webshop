@@ -25,7 +25,7 @@ function ProductList() {
       let allProducts = JSON.parse(localStorage.getItem("products") || "");
       setProducts(allProducts);
     }
-  }, []);
+  },[]);
 
   let filteredProduct = !searchInput
     ? products
@@ -34,7 +34,7 @@ function ProductList() {
       );
 
   const handleAddToCart = (
-    index: number,
+    
     id: string,
     itemsInCart: number,
     itemsLeft: number
@@ -52,6 +52,7 @@ function ProductList() {
     let updatedCart = [...cart, cartProduct];
     if (sessionStorage.getItem("Role")) {
       user[0].cart = updatedCart;
+      console.log(user[0])
       sessionStorage.setItem("User", JSON.stringify(user));
       localStorage.setItem("cart", JSON.stringify(updatedCart))
     } else {
@@ -112,7 +113,7 @@ const handleAdminEdit  = (product : newProps) => {
                       disabled={product.inCart}
                       onClick={() => {
                         handleAddToCart(
-                          index,
+                          
                           product.id,
                           product.itemsInCart,
                           product.itemsLeft

@@ -6,11 +6,11 @@ export const user: PropsUser[] = [
     userName: "user",
     passWord: "user123",
     name: "Sara",
-    address: "långgatan Gothenburg, 417 21",
+    address: "1201 Tredjelånggatan Gothenburg, 417 21",
     cart   :[],
     role: "user",
   }
-];
+]; 
 
 
 

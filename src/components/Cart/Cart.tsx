@@ -17,6 +17,7 @@ function Cart() {
     address,
     setAddress,
     setName,
+    
   } = useContext(ProductContext);
   const [totalPrice, setTotalPrice] = useState<Number>(0);
 
@@ -25,14 +26,13 @@ function Cart() {
   }
 
   let userCart = sessionStorage.getItem("User")
-    ? JSON.parse(sessionStorage.getItem("User") || "")[0].cart
-    : null;
+    && JSON.parse(sessionStorage.getItem("User") || "")[0].cart;
   useEffect(() => {
     if (localStorage.getItem("cart")) {
-      let allCart = JSON.parse(localStorage.getItem("cart") || "") || userCart;
+      let allCart = JSON.parse(localStorage.getItem("cart") || "") || JSON.parse(sessionStorage.getItem("User") || "")[0].cart;
       setCart(allCart);
     } else return;
-  }, []);
+  },[setCart]);
 
   useEffect(() => {
     addCartValue();
@@ -124,7 +124,7 @@ function Cart() {
     if (sessionStorage.getItem("Role")) {
       user[0].cart = updatedCart;
       sessionStorage.setItem("User", JSON.stringify(user));
-      localStorage.setItem("cart", JSON.stringify(updatedCart));
+     localStorage.setItem("cart", JSON.stringify(updatedCart));
     } else {
       localStorage.setItem("cart", JSON.stringify(updatedCart));
     }
@@ -167,7 +167,7 @@ function Cart() {
                     onChange={(e) => setAddress(e.target.value)}
                     placeholder="Enter Your Address.."
                   />
-                  <Button onClick={toggleModal}>save</Button>
+                  <Button onClick={toggleModal}>shop As Guest</Button>
                 </Form>
               </StyledModal>
             </ModalProvider>

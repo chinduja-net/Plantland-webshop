@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+ import { render, screen } from "@testing-library/react";
 import Login from "./Login";
 import userEvent from '@testing-library/user-event';
 import {user} from '../../assets/users'
@@ -82,4 +82,4 @@ it('navigate to / when sign out button is clicked', () => {
   expect(mockedUsedNavigate).toHaveBeenCalledWith("/")
 
 })
-})
+}) 

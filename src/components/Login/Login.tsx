@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useState} from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { user, admin} from "../../assets/users";
+import { PropsUser } from "../../assets/props";
+import { admin, user } from "../../assets/users";
 import BottomNav from "../BottomNav/BottomNav";
+
+
 function Login() {
+ 
   const [enteredUserName, setEnteredUserName] = useState("");
   const [enteredPassWord, setEnteredPassword] = useState("");
   const navigate = useNavigate();
@@ -15,7 +19,8 @@ function Login() {
       return;
     }
 
-    user.map((user) => {
+    user.map((user : PropsUser) => {
+      
       return user.userName === enteredUserName &&
         user.passWord === enteredPassWord &&
         user.role === "user"
@@ -23,18 +28,19 @@ function Login() {
         : admin.userName === enteredUserName &&
           admin.passWord === enteredPassWord &&
           admin.role === "admin"
-        ? navigate('/createProduct')
+        ? navigate("/createProduct")
         : window.alert("login Failed");
     });
   };
 
- 
   const success = () => {
+    
     setEnteredPassword("");
     setEnteredUserName("");
     window.alert("login success");
+    localStorage.removeItem("products")
     localStorage.removeItem("cart");
-    sessionStorage.setItem("Role", "user");
+     sessionStorage.setItem("Role", "user");
     navigate("/");
   };
 
@@ -48,28 +54,31 @@ function Login() {
   };
   return (
     <>
-    <Form>
-      <Title>USER LOGIN</Title>
-      <Label htmlFor="">username</Label>
-      <Input
-        type="text"
-        placeholder="username"
-        onChange={(e) => setEnteredUserName(e.target.value)}
-      />
-      <Label htmlFor="">Password</Label>
-      <Input
-        type="password"
-        placeholder="password"
-        onChange={(e) => setEnteredPassword(e.target.value)}
-      />
-      <Div>
-      <Button disabled = {!enteredUserName || !enteredPassWord } onClick={handleLogIn}>SIGN IN</Button>
-      <Button onClick={handleLogout}>SIGN OUT</Button>
-
-      </Div>
-     
-    </Form>
-    <BottomNav/>
+      <Form>
+        <Title>USER LOGIN</Title>
+        <Label htmlFor="">username</Label>
+        <Input
+          type="text"
+          placeholder="username"
+          onChange={(e) => setEnteredUserName(e.target.value)}
+        />
+        <Label htmlFor="">Password</Label>
+        <Input
+          type="password"
+          placeholder="password"
+          onChange={(e) => setEnteredPassword(e.target.value)}
+        />
+        <Div>
+          <Button
+            disabled={!enteredUserName || !enteredPassWord}
+            onClick={handleLogIn}
+          >
+            SIGN IN
+          </Button>
+          <Button onClick={handleLogout}>SIGN OUT</Button>
+        </Div>
+      </Form>
+      <BottomNav />
     </>
   );
 }
@@ -77,46 +86,44 @@ function Login() {
 export default Login;
 
 const Form = styled.form`
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  width:400px;
-  height:500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  height: 500px;
   border: 1px dashed #3a6b35;
-  
 `;
 const Title = styled.h2`
   font-size: 1.5em;
   text-align: center;
-  color:#3A6B35;
+  color: #3a6b35;
   text-transform: uppercase;
 `;
 const Label = styled.label`
-  display:flex;
+  display: flex;
   font-size: 0.8rem;
-  text-transform:uppercase;
+  text-transform: uppercase;
   width: 200px;
 `;
 const Input = styled.input`
   width: 300px;
 `;
 const Button = styled.button`
- font-size: 0.7rem;
+  font-size: 0.7rem;
   text-align: center;
-  text-transform:uppercase;
+  text-transform: uppercase;
   display: inline-block;
-  background-color: #CBD18F;
-  border-radius:3px;
+  background-color: #cbd18f;
+  border-radius: 3px;
   border: 1.5px solid #3a6b35;
   cursor: pointer;
   width: 100px;
 `;
 const Div = styled.div`
-display:flex;
-width:300px;
-justify-content:space-evenly;
-align-items:center;
-margin:10px;
-
-`
+  display: flex;
+  width: 300px;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 10px;
+`;

@@ -12,21 +12,14 @@ function Nav() {
     localStorage.removeItem("cart");
     window.alert("logged out successfully!");
   };
-
-  const handleAdminLogout = () => {
-
-    sessionStorage.removeItem("Role");
-    localStorage.removeItem("products");
-  }
-
   return (
     <Div>
       
       <Link to="/login">
-        {sessionStorage.getItem("Role") === "user" ? (
-          <Button onClick={handleLogout}>LOGOUT</Button>
+        {!sessionStorage.getItem("Role")  ? (
+          <Button data-testid ="login">LOGIN</Button>
         ) : (
-          <Button data-testid ="login">USER LOGIN</Button>
+          <Button onClick={handleLogout}>LOGOUT</Button>
         )}
       </Link>
       <Link to="/cart">
@@ -39,8 +32,7 @@ function Nav() {
         />
       </Link>
      
-      <Link to = "/login">{ sessionStorage.getItem('Role') === "admin" ? <Button onClick={handleAdminLogout}>ADMIN LOGOUT</Button> :
-        <Button>ADMIN LOGIN</Button>}</Link>
+     
     </Div>
   );
 }
