@@ -1,13 +1,7 @@
 import {
-  queryByRole,
-  queryByTestId,
-  render,
-  screen,
-  within,
+  
+  render
 } from "@testing-library/react";
-import { MemoryRouter } from "react-router-dom";
-import userEvent from "@testing-library/user-event";
-import { createMemoryHistory } from "history";
 
 import BottomNav from "./BottomNav";
 

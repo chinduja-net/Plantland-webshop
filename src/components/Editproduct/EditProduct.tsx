@@ -1,7 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import BottomNav from "../BottomNav/BottomNav";
 import { newProps } from "../../assets/props";
 import { ProductContext } from "../../context/productProvider";
 
@@ -98,11 +97,11 @@ function EditProduct() {
 
       
       <Div>
-      <Image src={imageURL} alt="" />
+      <Image src={imageURL} alt="plant in a pot" />
         <Button onClick={changeProduct}>Edit Product</Button>
       </Div>
     </Form>
-    <BottomNav />
+  
     </>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useState, createContext } from "react";
-import { Props, PropsUser } from "../assets/props";
+import { Props } from "../assets/props";
 import { newProps } from "../assets/props";
 
 export interface ProviderType {
