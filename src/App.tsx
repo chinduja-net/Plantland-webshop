@@ -24,9 +24,10 @@ function App() {
                 <>
                   <Nav />
                   <ProductList />
+               
                 </>
               }
-            ></Route>
+            />
           </Routes>
         </BrowserRouter>
       </Header>

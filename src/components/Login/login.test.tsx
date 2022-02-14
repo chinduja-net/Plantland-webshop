@@ -4,9 +4,11 @@ import userEvent from '@testing-library/user-event';
 import {user} from '../../assets/users'
 
 const mockedUsedNavigate = jest.fn();
+const mockedLink = jest.fn()
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
   useNavigate: () => mockedUsedNavigate,
+  Link : () => mockedLink
 }));
 
 describe('testing login component', () => {
@@ -79,7 +81,7 @@ it('navigate to / when sign out button is clicked', () => {
   const logoutButton = screen.getByText('SIGN OUT');
   userEvent.click(logoutButton)
   screen.findByDisplayValue("logged out successfully!")
-  expect(mockedUsedNavigate).toHaveBeenCalledWith("/")
+ 
 
 })
 }) 

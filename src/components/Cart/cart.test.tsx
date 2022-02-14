@@ -13,7 +13,6 @@ import "@testing-library/jest-dom";
 import ProductProvider from "../../context/productProvider";
 import Cart from "./Cart";
 
-
 describe("Testing Cart Component", () => {
   it("renders without crashing", () => {
     render(
@@ -23,48 +22,40 @@ describe("Testing Cart Component", () => {
     );
   });
 
-   it('renders cart image price name price quantity', () => {
-    render (
+  it("renders cart image price name price quantity", () => {
+    render(
       <ProductProvider>
-      <Cart />
-    </ProductProvider>)
+        <Cart />
+      </ProductProvider>
+    );
     const cartData = {
       id: "1",
       name: "",
       image: "",
       price: "",
-      itemsLeft:""
+      itemsLeft: "",
     };
 
-    const name = screen.queryAllByText(
-      cartData.name
-    )[1] as HTMLAnchorElement;
+    const name = screen.queryAllByText(cartData.name)[1] as HTMLAnchorElement;
     expect(name).toBeInTheDocument();
-    const image = screen.queryAllByText(
-      cartData.image
-    )[2] as HTMLAnchorElement;
+    const image = screen.queryAllByText(cartData.image)[2] as HTMLAnchorElement;
     expect(image).toBeInTheDocument();
-    const price = screen.queryAllByText(
-      cartData.price
-    )[3] as HTMLAnchorElement;
-    expect(price).toBeInTheDocument()
-    const itemsLeft = screen.queryAllByText(cartData.image)[4] as HTMLAnchorElement
-    expect(itemsLeft).toBeInTheDocument()
-  }) 
+    const price = screen.queryAllByText(cartData.price)[3] as HTMLAnchorElement;
+    expect(price).toBeInTheDocument();
+    const itemsLeft = screen.queryAllByText(
+      cartData.image
+    )[4] as HTMLAnchorElement;
+    expect(itemsLeft).toBeInTheDocument();
+  });
 
-  it('Increase cart quantity on click', async() => {
-    render (
+  it("Find the heading shopping cart",() => {
+    render(
       <ProductProvider>
-      <Cart />
-    </ProductProvider>)
-
-
+        <Cart />
+      </ProductProvider>
+       )
+    const heading = screen.getByText("shopping Cart")
+    expect(heading).toBeInTheDocument()
     
-
-    
-
-
-  })
-  
+  });
 });
-

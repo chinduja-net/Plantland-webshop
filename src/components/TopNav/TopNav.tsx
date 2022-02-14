@@ -14,10 +14,9 @@ function Nav() {
   };
   return (
     <Div>
-      
       <Link to="/login">
-        {!sessionStorage.getItem("Role")  ? (
-          <Button data-testid ="login">LOGIN</Button>
+        {!sessionStorage.getItem("Role") ? (
+          <Button data-testid="login">LOGIN</Button>
         ) : (
           <Button onClick={handleLogout}>LOGOUT</Button>
         )}
@@ -31,8 +30,6 @@ function Nav() {
           }}
         />
       </Link>
-     
-     
     </Div>
   );
 }
@@ -50,15 +47,15 @@ const Div = styled.div`
 const Button = styled.button`
   font-size: 0.7rem;
   text-align: center;
-  text-transform:uppercase;
+  text-transform: uppercase;
   display: inline-block;
-  background-color: #CBD18F;
+  background-color: #cbd18f;
   width: max-content;
-  border-radius:3px;
+  border-radius: 3px;
   border: 1.5px solid #3a6b35;
   cursor: pointer;
   &:disabled {
-    background-color:#b8a7a7;
+    background-color: #b8a7a7;
     opacity: 0.7;
     cursor: default;
   }

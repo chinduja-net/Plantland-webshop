@@ -7,7 +7,6 @@ import { Props, newProps } from "../../assets/props";
 import {user} from "../../assets/users";
 
 
-
 function ProductList() {
   const { setProducts, products, setCart, cart, searchInput, setSearchInput,setEditProduct } =
     useContext(ProductContext);
@@ -15,12 +14,10 @@ function ProductList() {
 
   if (!localStorage.getItem("products")) {
     localStorage.setItem("products", JSON.stringify(productsData));
-    setProducts(productsData);
+    //setProducts(productsData);
   }
 
- 
-
-  useEffect(() => {
+   useEffect(() => {
     if (localStorage.getItem("products")) {
       let allProducts = JSON.parse(localStorage.getItem("products") || "");
       setProducts(allProducts);
@@ -102,7 +99,7 @@ const handleAdminEdit  = (product : newProps) => {
       <Title>Products</Title>
       <Section>
         {filteredProduct
-          ? filteredProduct.map((product: any, index: number) => {
+          ? filteredProduct.map((product: any) => {
               return (
                 <ul key={product.id}>
                   <List>
@@ -122,7 +119,7 @@ const handleAdminEdit  = (product : newProps) => {
                     >
                       To cart
                     </BUTTON>
-                    {product.created === 'new'? <><BUTTON onClick = {  () =>handleAdminDelete(product.id)}>delete</BUTTON><BUTTON onClick = {() => handleAdminEdit(product)}>Edit</BUTTON></> : null}
+                    {sessionStorage.getItem('Role')=== 'admin'? <><BUTTON onClick = {  () =>handleAdminDelete(product.id)}>delete</BUTTON><BUTTON onClick = {() => handleAdminEdit(product)}>Edit</BUTTON></> : null}
                     
                   </List>
                 </ul>

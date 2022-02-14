@@ -4,6 +4,8 @@ import styled from "styled-components"
 import { newProps } from "../../assets/props";
 import { nanoid } from 'nanoid'
 import { ProductContext } from "../../context/productProvider";
+import ProductsData from "../../assets/data"
+import productsData from "../../assets/data";
 
 function CreateProduct() {
   const {setProducts} = useContext(ProductContext)
@@ -35,6 +37,10 @@ function CreateProduct() {
       newAddProduct = JSON.parse(products);
       newAddProduct?.push(newProduct);
       localStorage.setItem("products", JSON.stringify(newAddProduct));
+      setProducts(newAddProduct)
+      productsData.push(newProduct)
+      console.log(productsData)
+
     
       
     } else {

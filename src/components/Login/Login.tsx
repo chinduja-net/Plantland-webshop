@@ -47,10 +47,10 @@ function Login() {
   const handleLogout = () => {
     sessionStorage.removeItem("Role");
     sessionStorage.removeItem("User");
-    localStorage.removeItem("products");
+   localStorage.removeItem("products");
     localStorage.removeItem("cart");
     window.alert("logged out successfully!");
-    navigate("/");
+  
   };
   return (
     <>
@@ -75,7 +75,7 @@ function Login() {
           >
             SIGN IN
           </Button>
-          <Button onClick={handleLogout}>SIGN OUT</Button>
+          <Button  onClick={handleLogout}>SIGN OUT</Button>
         </Div>
       </Form>
       <BottomNav />
