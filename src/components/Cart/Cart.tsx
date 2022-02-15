@@ -179,6 +179,8 @@ function Cart() {
         )}
       </Wrapper>
       <Heading>shopping Cart</Heading>
+      
+          
       <Cartsection>
         {cart
           ? cart.map((cartItem: PropsCart) => {
@@ -224,7 +226,10 @@ function Cart() {
               );
             })
           : null}
-        <Para>Total : {totalPrice}</Para>
+          <div>
+          <TotalPara>Total : {totalPrice}</TotalPara>
+          </div>
+      
       </Cartsection>
       <BottomNav/>
          </Article>
@@ -298,7 +303,12 @@ const Input = styled.input`
 const TextArea = styled.textarea`
   width: 200px;
 `
-
+const TotalPara = styled.div`
+display: flex;
+font-size: 0.8rem;
+justify-content: flex-end;
+margin-right: 50px;
+`
 const StyledModal = Modal.styled`
   width: 20rem;
   height: 10rem;
