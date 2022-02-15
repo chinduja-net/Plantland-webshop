@@ -1,4 +1,5 @@
 import { render,screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import EditProduct from "./EditProduct";
 import { ProductContext } from "../../context/productProvider";
 
@@ -59,7 +60,8 @@ describe("Testing EditProduct Component", () => {
 
     const editButton = screen.getByRole("button")
     expect(editButton).toBeInTheDocument()
-   
+    userEvent.click(editButton)
+   expect(mockedNavigator).toHaveBeenCalledWith("/")
     
 
 

@@ -12,10 +12,9 @@ function ProductList() {
     useContext(ProductContext);
     const navigate = useNavigate();
 
-  if (!localStorage.getItem("products")) {
-    localStorage.setItem("products", JSON.stringify(productsData));
-    //setProducts(productsData);
-  }
+  (!localStorage.getItem("products")) &&  localStorage.setItem("products", JSON.stringify(productsData));
+  
+  
 
    useEffect(() => {
     if (localStorage.getItem("products")) {
@@ -106,7 +105,9 @@ const handleAdminEdit  = (product : newProps) => {
                     <Image src={product.image} alt="plant in a pot" />
                     <Name>{product.name}</Name>
                     <Name>{product.price} kr</Name>
-                    <BUTTON
+                   {/*  {sessionStorage.getItem("Role") === "admin" ? null :} */}
+                    
+                    {sessionStorage.getItem('Role')=== 'admin'? <><BUTTON onClick = {  () =>handleAdminDelete(product.id)}>delete</BUTTON><BUTTON onClick = {() => handleAdminEdit(product)}>Edit</BUTTON></> : <BUTTON
                       disabled={product.inCart}
                       onClick={() => {
                         handleAddToCart(
@@ -118,8 +119,7 @@ const handleAdminEdit  = (product : newProps) => {
                       }}
                     >
                       To cart
-                    </BUTTON>
-                    {sessionStorage.getItem('Role')=== 'admin'? <><BUTTON onClick = {  () =>handleAdminDelete(product.id)}>delete</BUTTON><BUTTON onClick = {() => handleAdminEdit(product)}>Edit</BUTTON></> : null}
+                    </BUTTON>}
                     
                   </List>
                 </ul>

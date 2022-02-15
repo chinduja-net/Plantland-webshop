@@ -30,7 +30,7 @@ function EditProduct() {
   let notAddedProduct: Array<object> | null = [];
 
   const changeProduct = () => {
-    let products = JSON.parse(localStorage.getItem("products") || "");
+    let products =localStorage.getItem("products") && JSON.parse(localStorage.getItem("products") || "");
     if (products) {
       notAddedProduct = products.filter(
         (p: newProps) => p.id !== editProduct.id
@@ -60,7 +60,7 @@ function EditProduct() {
 
   return (
     <>
-    <Form>
+    <Form action="submit">
       <Title>Edit product</Title>
       <Label htmlFor="">Product Name </Label>
       <Input

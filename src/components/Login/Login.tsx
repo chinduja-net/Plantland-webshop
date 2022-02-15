@@ -38,7 +38,7 @@ function Login() {
     setEnteredPassword("");
     setEnteredUserName("");
     window.alert("login success");
-    localStorage.removeItem("products")
+    //localStorage.removeItem("products")
     localStorage.removeItem("cart");
      sessionStorage.setItem("Role", "user");
     navigate("/");
@@ -47,7 +47,7 @@ function Login() {
   const handleLogout = () => {
     sessionStorage.removeItem("Role");
     sessionStorage.removeItem("User");
-   localStorage.removeItem("products");
+   //localStorage.removeItem("products");
     localStorage.removeItem("cart");
     window.alert("logged out successfully!");
   
@@ -55,7 +55,7 @@ function Login() {
   return (
     <>
       <Form>
-        <Title>USER LOGIN</Title>
+        <Title>LOGIN</Title>
         <Label htmlFor="">username</Label>
         <Input
           type="text"

@@ -4,9 +4,9 @@ import { Home } from "@styled-icons/heroicons-solid";
 
 function BottomNav() {
   return (
-    <Div role="div">
-      <Link to="/">
-        <Home data-testid="svg-element" size="36" color="#3a6b35" />
+    <Div>
+      <Link to="/" data-testid="svg-element">
+        <Home  size="36" color="#3a6b35" />
       </Link>
     </Div>
   );
@@ -22,8 +22,3 @@ const Div = styled.div`
   margin-top: 15px;
 `;
 
-{
-  /* <Div>
-      <a href = "/"> <Home data-testid = "home" size="36" color="#3a6b35" /></a>
-    </Div> */
-}

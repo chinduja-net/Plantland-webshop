@@ -132,7 +132,7 @@ function Cart() {
     setCart(updatedCart);
 
     /* ------------------------------------------------------ */
-    let allProducts = JSON.parse(localStorage.getItem("products") || "");
+    let allProducts = localStorage.getItem("products") && JSON.parse(localStorage.getItem("products") || "");
     let removedProduct = allProducts.filter((p: Props) => p.id === id)[0];
     removedProduct.inCart = false;
     console.log(removedProduct);
@@ -187,7 +187,7 @@ function Cart() {
                   <Image src={cartItem.image} />
                   <Para>{cartItem.name}</Para>
                   <div>
-                    <Button data-testid = "increaseCart"
+                    <Button data-testid ="increaseCart"
                       disabled={cartItem.itemsLeft === 0}
                       onClick={() =>
                         handleIncreaseCartQuantity(
@@ -200,7 +200,7 @@ function Cart() {
                       +
                     </Button>
                     <Span>{cartItem.itemsInCart} </Span>
-                    <Button
+                    <Button data-testid = "decreaseCart"
                       disabled={cartItem.itemsLeft === 10}
                       onClick={() =>
                         handleDecreaseCartQuantity(
@@ -214,7 +214,7 @@ function Cart() {
                     </Button>
                   </div>
                   <Para>{cartItem.itemsLeft} left</Para>
-                  <Button onClick={() => handleRemoveCartItem(cartItem.id)}>
+                  <Button data-testid = "removeCart" onClick={() => handleRemoveCartItem(cartItem.id)}>
                     x
                   </Button>
 

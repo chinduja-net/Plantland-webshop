@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
@@ -7,8 +6,6 @@ import { ShoppingCart } from "@styled-icons/entypo";
 function Nav() {
   const handleLogout = () => {
     sessionStorage.removeItem("Role");
-    sessionStorage.removeItem("User");
-    localStorage.removeItem("products");
     localStorage.removeItem("cart");
     window.alert("logged out successfully!");
   };
@@ -21,15 +18,18 @@ function Nav() {
           <Button onClick={handleLogout}>LOGOUT</Button>
         )}
       </Link>
-      <Link to="/cart">
-        <ShoppingCart
-          size="24"
-          style={{
-            color: "#3A6B35",
-            margin: "0 7px 0 7px",
-          }}
-        />
-      </Link>
+      {sessionStorage.getItem("Role") === "admin" ? null : (
+        <Link to="/cart">
+          <ShoppingCart
+            data-testid="svg-shopping"
+            size="24"
+            style={{
+              color: "#3A6B35",
+              margin: "0 7px 0 7px",
+            }}
+          />
+        </Link>
+      )}
     </Div>
   );
 }
