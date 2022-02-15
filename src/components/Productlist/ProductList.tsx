@@ -4,24 +4,29 @@ import { useNavigate } from "react-router-dom";
 import { ProductContext } from "../../context/productProvider";
 import productsData from "../../assets/data";
 import { Props, newProps } from "../../assets/props";
-import {user} from "../../assets/users";
-
+import { user } from "../../assets/users";
 
 function ProductList() {
-  const { setProducts, products, setCart, cart, searchInput, setSearchInput,setEditProduct } =
-    useContext(ProductContext);
-    const navigate = useNavigate();
+  const {
+    setProducts,
+    products,
+    setCart,
+    cart,
+    searchInput,
+    setSearchInput,
+    setEditProduct,
+  } = useContext(ProductContext);
+  const navigate = useNavigate();
 
-  (!localStorage.getItem("products")) &&  localStorage.setItem("products", JSON.stringify(productsData));
-  
-  
+  !localStorage.getItem("products") &&
+    localStorage.setItem("products", JSON.stringify(productsData));
 
-   useEffect(() => {
+  useEffect(() => {
     if (localStorage.getItem("products")) {
       let allProducts = JSON.parse(localStorage.getItem("products") || "");
       setProducts(allProducts);
     }
-  },[]);
+  }, []);
 
   let filteredProduct = !searchInput
     ? products
@@ -30,7 +35,6 @@ function ProductList() {
       );
 
   const handleAddToCart = (
-    
     id: string,
     itemsInCart: number,
     itemsLeft: number
@@ -48,9 +52,9 @@ function ProductList() {
     let updatedCart = [...cart, cartProduct];
     if (sessionStorage.getItem("Role")) {
       user[0].cart = updatedCart;
-      console.log(user[0])
+      console.log(user[0]);
       sessionStorage.setItem("User", JSON.stringify(user));
-      localStorage.setItem("cart", JSON.stringify(updatedCart))
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
     } else {
       localStorage.setItem("cart", JSON.stringify(updatedCart));
     }
@@ -58,43 +62,37 @@ function ProductList() {
     setCart(updatedCart);
   };
   const handleDisable = (id: string) => {
-   
-   let productsStorage = JSON.parse(localStorage.getItem("products") || "");
-    let clickedProduct = productsStorage.filter((p : Props) => p.id === id)[0]
+    let productsStorage = JSON.parse(localStorage.getItem("products") || "");
+    let clickedProduct = productsStorage.filter((p: Props) => p.id === id)[0];
     clickedProduct.inCart = true;
-    console.log(clickedProduct)
-    let index = productsStorage.findIndex((p:Props) => p.id === id)
+    console.log(clickedProduct);
+    let index = productsStorage.findIndex((p: Props) => p.id === id);
     console.log(index);
-    productsStorage[index] = clickedProduct
-    
-  localStorage.setItem("products", JSON.stringify(productsStorage));
-    setProducts(productsStorage);  
+    productsStorage[index] = clickedProduct;
+
+    localStorage.setItem("products", JSON.stringify(productsStorage));
+    setProducts(productsStorage);
   };
-const handleAdminDelete = (id : string) => {
-
-  let allProducts = JSON.parse(localStorage.getItem('products') || '')
-  let removedProduct =allProducts.filter((p : newProps) => p.id !== id)
-  localStorage.setItem('products', JSON.stringify(removedProduct))
-  setProducts(removedProduct)
-
-}
-const handleAdminEdit  = (product : newProps) => {
-  console.log(product);
-  setEditProduct(product)
-  navigate('/editProduct')
-} 
+  const handleAdminDelete = (id: string) => {
+    let allProducts = JSON.parse(localStorage.getItem("products") || "");
+    let removedProduct = allProducts.filter((p: newProps) => p.id !== id);
+    localStorage.setItem("products", JSON.stringify(removedProduct));
+    setProducts(removedProduct);
+  };
+  const handleAdminEdit = (product: newProps) => {
+    console.log(product);
+    setEditProduct(product);
+    navigate("/editProduct");
+  };
   return (
     <article>
-      
-     
       <Input
         type="search"
         value={searchInput}
         onChange={(e) => setSearchInput(e.target.value)}
         placeholder="Search for products..."
-        
       />
-    
+
       <Title>Products</Title>
       <Section>
         {filteredProduct
@@ -105,22 +103,29 @@ const handleAdminEdit  = (product : newProps) => {
                     <Image src={product.image} alt="plant in a pot" />
                     <Name>{product.name}</Name>
                     <Name>{product.price} kr</Name>
-                   {/*  {sessionStorage.getItem("Role") === "admin" ? null :} */}
-                    
-                    {sessionStorage.getItem('Role')=== 'admin'? <><BUTTON onClick = {  () =>handleAdminDelete(product.id)}>delete</BUTTON><BUTTON onClick = {() => handleAdminEdit(product)}>Edit</BUTTON></> : <BUTTON
-                      disabled={product.inCart}
-                      onClick={() => {
-                        handleAddToCart(
-                          
-                          product.id,
-                          product.itemsInCart,
-                          product.itemsLeft
-                        );
-                      }}
-                    >
-                      To cart
-                    </BUTTON>}
-                    
+                    {sessionStorage.getItem("Role") === "admin" ? (
+                      <>
+                        <BUTTON onClick={() => handleAdminDelete(product.id)}>
+                          delete
+                        </BUTTON>
+                        <BUTTON onClick={() => handleAdminEdit(product)}>
+                          Edit
+                        </BUTTON>
+                      </>
+                    ) : (
+                      <BUTTON data-testid ="ToCart"
+                        disabled={product.inCart}
+                        onClick={() => {
+                          handleAddToCart(
+                            product.id,
+                            product.itemsInCart,
+                            product.itemsLeft
+                          );
+                        }}
+                      >
+                        To cart
+                      </BUTTON>
+                    )}
                   </List>
                 </ul>
               );
@@ -128,39 +133,37 @@ const handleAdminEdit  = (product : newProps) => {
           : null}
       </Section>
     </article>
-
   );
 }
 
 export default ProductList;
 
 const Name = styled.h3`
- text-transform: uppercase;
-`
+  text-transform: uppercase;
+`;
 
 const Input = styled.input`
-  width:500px;
+  width: 500px;
   border: 1px solid grey;
-    border-radius: 5px;
-    height: 20px;
+  border-radius: 5px;
+  height: 20px;
   padding: 2px 23px 2px 30px;
-    outline: 0;
-    background-color: #f5f5f5;
+  outline: 0;
+  background-color: #f5f5f5;
   &:focus {
-    border: 1.5px solid #3A6B35;
+    border: 1.5px solid #3a6b35;
     background-color: white;
   }
   &:hover {
-    border: 1.5px solid #3A6B35;
+    border: 1.5px solid #3a6b35;
     background-color: white;
-  }`;
-
- 
+  }
+`;
 
 const Title = styled.h2`
   font-size: 1.5em;
   text-align: center;
-  color:#3A6B35;
+  color: #3a6b35;
   text-transform: uppercase;
 `;
 
@@ -169,7 +172,6 @@ const Image = styled.img`
   width: 250px;
   /* box-shadow: 1px 1px #3A6B35; */
   &:hover {
-   
   }
 `;
 const Section = styled.section`
@@ -177,28 +179,27 @@ const Section = styled.section`
   justify-content: center;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 30px;
- 
 `;
 const List = styled.li`
   list-style-type: none;
- 
-  box-shadow: 0.5px 0.5px 3px #3A6B35;
-  width:300px;
-  padding:10px;
+
+  box-shadow: 0.5px 0.5px 3px #3a6b35;
+  width: 300px;
+  padding: 10px;
 `;
 
 const BUTTON = styled.button`
   font-size: 0.7rem;
   text-align: center;
-  text-transform:uppercase;
+  text-transform: uppercase;
   display: inline-block;
-  background-color: #CBD18F;
+  background-color: #cbd18f;
   width: max-content;
-  border-radius:3px;
+  border-radius: 3px;
   border: 1.5px solid #3a6b35;
   cursor: pointer;
   &:disabled {
-    background-color:#b8a7a7;
+    background-color: #b8a7a7;
     opacity: 0.7;
     cursor: default;
   }

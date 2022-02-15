@@ -9,18 +9,14 @@ jest.mock("React", () => ({
   useEffect: jest.fn(),
 }));
 
-import { render, screen} from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
 import ProductList from "./ProductList";
-
 import ProductProvider from "../../context/productProvider";
-
+import userEvent from "@testing-library/user-event";
+import productsData from "../../assets/data";
 
 describe("Testing ProductList Component", () => {
-  render(
-    <ProductProvider>
-      <ProductList />
-    </ProductProvider>
-  );
   it("renders without crashing", () => {
     render(<ProductList />);
   });
@@ -60,9 +56,22 @@ describe("searchbar", () => {
     expect(input).toHaveValue("");
   });
 
-  it("should have placeholder text", () => {
-    render(<ProductList />);
+  it("should display the plant which is on search ", () => {
+    const products = {
+      id: "1",
+      name: "pothos",
+      image: "",
+      price: "",
+    };
+    localStorage.setItem("products", JSON.stringify(products));
+    render(
+      <ProductProvider value={{ products }}>
+        <ProductList />
+      </ProductProvider>
+    );
     const input = screen.getByPlaceholderText("Search for products...");
     expect(input).toBeInTheDocument();
+    userEvent.type(input, "pothos");
   });
 });
+
