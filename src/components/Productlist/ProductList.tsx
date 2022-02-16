@@ -52,8 +52,7 @@ function ProductList() {
     let updatedCart = [...cart, cartProduct];
     if (sessionStorage.getItem("Role")) {
       user[0].cart = updatedCart;
-      console.log(user[0]);
-      sessionStorage.setItem("User", JSON.stringify(user));
+        sessionStorage.setItem("User", JSON.stringify(user));
       localStorage.setItem("cart", JSON.stringify(updatedCart));
     } else {
       localStorage.setItem("cart", JSON.stringify(updatedCart));
@@ -67,7 +66,7 @@ function ProductList() {
     clickedProduct.inCart = true;
     console.log(clickedProduct);
     let index = productsStorage.findIndex((p: Props) => p.id === id);
-    console.log(index);
+   
     productsStorage[index] = clickedProduct;
 
     localStorage.setItem("products", JSON.stringify(productsStorage));
@@ -80,7 +79,7 @@ function ProductList() {
     setProducts(removedProduct);
   };
   const handleAdminEdit = (product: newProps) => {
-    console.log(product);
+
     setEditProduct(product);
     navigate("/editProduct");
   };
@@ -170,7 +169,6 @@ const Title = styled.h2`
 const Image = styled.img`
   height: 250px;
   width: 250px;
-  /* box-shadow: 1px 1px #3A6B35; */
   &:hover {
   }
 `;

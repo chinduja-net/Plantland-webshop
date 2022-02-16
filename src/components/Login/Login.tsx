@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { PropsUser } from "../../assets/props";
 import { admin, user } from "../../assets/users";
-import BottomNav from "../BottomNav/BottomNav";
+
 
 
 function Login() {
@@ -12,7 +12,8 @@ function Login() {
   const [enteredPassWord, setEnteredPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogIn = () => {
+  const handleLogIn = (e : any) => {
+    e.preventDefault()
     if (!enteredUserName || !enteredPassWord) {
       window.alert("Enter userName & Password to login");
 
@@ -37,24 +38,14 @@ function Login() {
     
     setEnteredPassword("");
     setEnteredUserName("");
-    window.alert("login success");
-    //localStorage.removeItem("products")
-    localStorage.removeItem("cart");
+        localStorage.removeItem("cart");
      sessionStorage.setItem("Role", "user");
     navigate("/");
   };
 
-  const handleLogout = () => {
-    sessionStorage.removeItem("Role");
-    sessionStorage.removeItem("User");
-   //localStorage.removeItem("products");
-    localStorage.removeItem("cart");
-    window.alert("logged out successfully!");
-  
-  };
   return (
     <>
-      <Form>
+      <Form action ="submit">
         <Title>LOGIN</Title>
         <Label htmlFor="">username</Label>
         <Input
@@ -75,10 +66,10 @@ function Login() {
           >
             SIGN IN
           </Button>
-          <Button  onClick={handleLogout}>SIGN OUT</Button>
+   
         </Div>
       </Form>
-      <BottomNav />
+ 
     </>
   );
 }

@@ -7,9 +7,7 @@ import { ProductContext } from "../../context/productProvider";
 function EditProduct() {
   const { editProduct } = useContext(ProductContext);
 
-  console.log(editProduct); 
-
-  const navigate = useNavigate();
+   const navigate = useNavigate();
   const [name, setName] = useState(editProduct.name);
   const [price, setPrice] = useState(editProduct.price);
   const [quantity, setQuantity] = useState<number>(editProduct.quantity);
@@ -29,7 +27,8 @@ function EditProduct() {
   };
   let notAddedProduct: Array<object> | null = [];
 
-  const changeProduct = () => {
+  const changeProduct = (e : any) => {
+    e.preventDefault();
     let products =localStorage.getItem("products") && JSON.parse(localStorage.getItem("products") || "");
     if (products) {
       notAddedProduct = products.filter(

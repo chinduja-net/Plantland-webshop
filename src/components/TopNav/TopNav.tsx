@@ -5,9 +5,11 @@ import { ShoppingCart } from "@styled-icons/entypo";
 
 function Nav() {
   const handleLogout = () => {
-    sessionStorage.removeItem("Role");
+    /*   sessionStorage.removeItem("Role");
     localStorage.removeItem("cart");
-    window.alert("logged out successfully!");
+    window.alert("logged out successfully!"); */
+    sessionStorage.clear();
+    localStorage.removeItem("cart");
   };
   return (
     <Div>

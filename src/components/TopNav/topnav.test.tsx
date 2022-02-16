@@ -4,7 +4,6 @@ import { createMemoryHistory } from "history";
 import userEvent from "@testing-library/user-event";
 import Nav from "./TopNav";
 describe("testing nav component", () => {
-  jest.spyOn(window, "alert").mockImplementation(() => {});
   it("renders nav component without crashing", () => {
     render(
       <MemoryRouter>
@@ -28,8 +27,7 @@ describe("testing nav component", () => {
     userEvent.click(button);
     sessionStorage.clear();
     localStorage.clear();
-    expect(window.alert).toHaveBeenCalledWith("logged out successfully!");
-    expect(history.location.pathname).toBe("/");
+      expect(history.location.pathname).toBe("/");
   });
 
   it("displays login button when there is no Role in sessionStorage", () => {

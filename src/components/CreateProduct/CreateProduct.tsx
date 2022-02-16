@@ -27,7 +27,8 @@ function CreateProduct() {
     created: "new",
   };
   let newAddProduct: Array<object> | null = [];
-  const addProduct = () => {
+  const addProduct = (e : any) => {
+    e.preventDefault();
     sessionStorage.setItem("Role", "admin");
     let products = localStorage.getItem("products");
     if (products) {
@@ -59,7 +60,7 @@ function CreateProduct() {
   }, [image]);
 
   return (
-    <Form>
+    <Form action ="submit">
       <Title>ADD NEW PRODUCT</Title>
       <Label htmlFor="">Product Name </Label>
       <Input

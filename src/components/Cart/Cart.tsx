@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from "react";
 import Modal, { ModalProvider } from "styled-react-modal";
 import styled from "styled-components";
 import { ProductContext } from "../../context/productProvider";
-import BottomNav from "../BottomNav/BottomNav"
 import { PropsCart,Props } from "../../assets/props";
 import { user } from "../../assets/users";
 
@@ -63,12 +62,11 @@ function Cart() {
     let allCartItems = localStorage.getItem("cart")
       ? JSON.parse(localStorage.getItem("cart") || "")
       : userCart;
-    console.log(allCartItems);
-    let clickedCart = allCartItems.filter((c: PropsCart) => c.id === id)[0];
+       let clickedCart = allCartItems.filter((c: PropsCart) => c.id === id)[0];
 
     clickedCart.itemsInCart = itemsInCart;
     clickedCart.itemsLeft = itemsLeft;
-    console.log("clicked", clickedCart);
+
 
     let index = allCartItems.findIndex((c: PropsCart) => c.id === id);
     let updatedCart = allCartItems.slice();
@@ -98,8 +96,7 @@ function Cart() {
 
     clickedCart.itemsInCart = itemsInCart;
     clickedCart.itemsLeft = itemsLeft;
-    console.log("clicked", clickedCart);
-    let index = allCartItems.findIndex((c: PropsCart) => c.id === id);
+       let index = allCartItems.findIndex((c: PropsCart) => c.id === id);
     let updatedCart = allCartItems.slice();
     updatedCart[index] = clickedCart;
 
@@ -117,10 +114,10 @@ function Cart() {
       ? JSON.parse(localStorage.getItem("cart") || "")
       : userCart;
     let index = allCartItems.findIndex((c: PropsCart) => c.id === id);
-    console.log(index);
+ 
     let updatedCart = allCartItems.slice();
     updatedCart.splice(index, 1);
-    console.log(updatedCart);
+ 
     if (sessionStorage.getItem("Role")) {
       user[0].cart = updatedCart;
       sessionStorage.setItem("User", JSON.stringify(user));
@@ -135,8 +132,7 @@ function Cart() {
     let allProducts = localStorage.getItem("products") && JSON.parse(localStorage.getItem("products") || "");
     let removedProduct = allProducts.filter((p: Props) => p.id === id)[0];
     removedProduct.inCart = false;
-    console.log(removedProduct);
-    let removedIndex = allProducts.findIndex((p: Props) => p.id === id);
+        let removedIndex = allProducts.findIndex((p: Props) => p.id === id);
     const copy = allProducts.slice();
     copy[removedIndex] = removedProduct;
     localStorage.setItem("products", JSON.stringify(copy));
@@ -231,7 +227,7 @@ function Cart() {
           </div>
       
       </Cartsection>
-      <BottomNav/>
+ 
          </Article>
   );
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import ProductList from "./components/Productlist/ProductList";
+import BottomNav from "./components/BottomNav/BottomNav"
 import Nav from "./components/TopNav/TopNav";
 import Cart from "./components/Cart/Cart";
 import Login from "./components/Login/Login";
@@ -14,8 +15,8 @@ function App() {
       <Header>
         <BrowserRouter>
           <Routes>
-            <Route path="/login" element={<Login />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route path="/login" element={<><Login /> <BottomNav/></>} />
+            <Route path="/cart" element={<><Cart /> <BottomNav/></>} />
             <Route path = "/createProduct" element = {<CreateProduct/>}/>
             <Route path="/editProduct" element={<EditProduct />} />
             <Route
