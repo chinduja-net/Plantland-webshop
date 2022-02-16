@@ -187,7 +187,7 @@ const List = styled.li`
 `;
 
 const BUTTON = styled.button`
-  font-size: 0.7rem;
+  font-size: 0.9rem;
   text-align: center;
   text-transform: uppercase;
   display: inline-block;

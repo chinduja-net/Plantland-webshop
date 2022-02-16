@@ -1,27 +1,23 @@
-import { useState} from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { PropsUser } from "../../assets/props";
 import { admin, user } from "../../assets/users";
 
-
-
 function Login() {
- 
   const [enteredUserName, setEnteredUserName] = useState("");
   const [enteredPassWord, setEnteredPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogIn = (e : any) => {
-    e.preventDefault()
+  const handleLogIn = (e: any) => {
+    e.preventDefault();
     if (!enteredUserName || !enteredPassWord) {
       window.alert("Enter userName & Password to login");
 
       return;
     }
 
-    user.map((user : PropsUser) => {
-      
+    user.map((user: PropsUser) => {
       return user.userName === enteredUserName &&
         user.passWord === enteredPassWord &&
         user.role === "user"
@@ -35,17 +31,16 @@ function Login() {
   };
 
   const success = () => {
-    
     setEnteredPassword("");
     setEnteredUserName("");
-        localStorage.removeItem("cart");
-     sessionStorage.setItem("Role", "user");
+    localStorage.removeItem("cart");
+    sessionStorage.setItem("Role", "user");
     navigate("/");
   };
 
   return (
     <>
-      <Form action ="submit">
+      <Form action="submit">
         <Title>LOGIN</Title>
         <Label htmlFor="">username</Label>
         <Input
@@ -66,10 +61,8 @@ function Login() {
           >
             SIGN IN
           </Button>
-   
         </Div>
       </Form>
- 
     </>
   );
 }
