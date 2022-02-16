@@ -86,15 +86,15 @@ const Title = styled.h2`
 `;
 const Label = styled.label`
   display: flex;
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   text-transform: uppercase;
-  width: 200px;
+  width: 300px;
 `;
 const Input = styled.input`
   width: 300px;
 `;
 const Button = styled.button`
-  font-size: 0.7rem;
+  font-size: 1rem;
   text-align: center;
   text-transform: uppercase;
   display: inline-block;

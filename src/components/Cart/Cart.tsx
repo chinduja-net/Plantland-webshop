@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import Modal, { ModalProvider } from "styled-react-modal";
 import styled from "styled-components";
 import { ProductContext } from "../../context/productProvider";
-import { PropsCart,Props } from "../../assets/props";
+import { PropsCart, Props } from "../../assets/props";
 import { user } from "../../assets/users";
 
 function Cart() {
@@ -16,7 +16,6 @@ function Cart() {
     address,
     setAddress,
     setName,
-    
   } = useContext(ProductContext);
   const [totalPrice, setTotalPrice] = useState<Number>(0);
 
@@ -24,14 +23,17 @@ function Cart() {
     setIsOpen(!isOpen);
   }
 
-  let userCart = sessionStorage.getItem("User")
-    && JSON.parse(sessionStorage.getItem("User") || "")[0].cart;
+  let userCart =
+    sessionStorage.getItem("User") &&
+    JSON.parse(sessionStorage.getItem("User") || "")[0].cart;
   useEffect(() => {
     if (localStorage.getItem("cart")) {
-      let allCart = JSON.parse(localStorage.getItem("cart") || "") || JSON.parse(sessionStorage.getItem("User") || "")[0].cart;
+      let allCart =
+        JSON.parse(localStorage.getItem("cart") || "") ||
+        JSON.parse(sessionStorage.getItem("User") || "")[0].cart;
       setCart(allCart);
     } else return;
-  },[setCart]);
+  }, [setCart]);
 
   useEffect(() => {
     addCartValue();
@@ -48,8 +50,8 @@ function Cart() {
         sum += subTotal[i];
       }
       setTotalPrice(sum);
-    }else{
-      setTotalPrice(0)
+    } else {
+      setTotalPrice(0);
     }
   };
   const handleIncreaseCartQuantity = (
@@ -62,11 +64,10 @@ function Cart() {
     let allCartItems = localStorage.getItem("cart")
       ? JSON.parse(localStorage.getItem("cart") || "")
       : userCart;
-       let clickedCart = allCartItems.filter((c: PropsCart) => c.id === id)[0];
+    let clickedCart = allCartItems.filter((c: PropsCart) => c.id === id)[0];
 
     clickedCart.itemsInCart = itemsInCart;
     clickedCart.itemsLeft = itemsLeft;
-
 
     let index = allCartItems.findIndex((c: PropsCart) => c.id === id);
     let updatedCart = allCartItems.slice();
@@ -96,7 +97,7 @@ function Cart() {
 
     clickedCart.itemsInCart = itemsInCart;
     clickedCart.itemsLeft = itemsLeft;
-       let index = allCartItems.findIndex((c: PropsCart) => c.id === id);
+    let index = allCartItems.findIndex((c: PropsCart) => c.id === id);
     let updatedCart = allCartItems.slice();
     updatedCart[index] = clickedCart;
 
@@ -114,14 +115,14 @@ function Cart() {
       ? JSON.parse(localStorage.getItem("cart") || "")
       : userCart;
     let index = allCartItems.findIndex((c: PropsCart) => c.id === id);
- 
+
     let updatedCart = allCartItems.slice();
     updatedCart.splice(index, 1);
- 
+
     if (sessionStorage.getItem("Role")) {
       user[0].cart = updatedCart;
       sessionStorage.setItem("User", JSON.stringify(user));
-     localStorage.setItem("cart", JSON.stringify(updatedCart));
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
     } else {
       localStorage.setItem("cart", JSON.stringify(updatedCart));
     }
@@ -129,10 +130,12 @@ function Cart() {
     setCart(updatedCart);
 
     /* ------------------------------------------------------ */
-    let allProducts = localStorage.getItem("products") && JSON.parse(localStorage.getItem("products") || "");
+    let allProducts =
+      localStorage.getItem("products") &&
+      JSON.parse(localStorage.getItem("products") || "");
     let removedProduct = allProducts.filter((p: Props) => p.id === id)[0];
     removedProduct.inCart = false;
-        let removedIndex = allProducts.findIndex((p: Props) => p.id === id);
+    let removedIndex = allProducts.findIndex((p: Props) => p.id === id);
     const copy = allProducts.slice();
     copy[removedIndex] = removedProduct;
     localStorage.setItem("products", JSON.stringify(copy));
@@ -175,17 +178,23 @@ function Cart() {
         )}
       </Wrapper>
       <Heading>shopping Cart</Heading>
-      
-          
+
       <Cartsection>
+        <Table>
+          <tr>cart items</tr>
+
+          <tr>price</tr>
+          <tr>subtotal</tr>
+        </Table>
         {cart
           ? cart.map((cartItem: PropsCart) => {
               return (
                 <List key={cartItem.id}>
                   <Image src={cartItem.image} />
                   <Para>{cartItem.name}</Para>
-                  <div>
-                    <Button data-testid ="increaseCart"
+                  <ButtonDiv>
+                    <Button
+                      data-testid="increaseCart"
                       disabled={cartItem.itemsLeft === 0}
                       onClick={() =>
                         handleIncreaseCartQuantity(
@@ -198,7 +207,8 @@ function Cart() {
                       +
                     </Button>
                     <Span>{cartItem.itemsInCart} </Span>
-                    <Button data-testid = "decreaseCart"
+                    <Button
+                      data-testid="decreaseCart"
                       disabled={cartItem.itemsLeft === 10}
                       onClick={() =>
                         handleDecreaseCartQuantity(
@@ -210,9 +220,12 @@ function Cart() {
                     >
                       -
                     </Button>
-                  </div>
+                  </ButtonDiv>
                   <Para>{cartItem.itemsLeft} left</Para>
-                  <Button data-testid = "removeCart" onClick={() => handleRemoveCartItem(cartItem.id)}>
+                  <Button
+                    data-testid="removeCart"
+                    onClick={() => handleRemoveCartItem(cartItem.id)}
+                  >
                     x
                   </Button>
 
@@ -222,13 +235,11 @@ function Cart() {
               );
             })
           : null}
-          <div>
-          <TotalPara>Total : {totalPrice}</TotalPara>
-          </div>
-      
+        <div>
+          <TotalPara>Total : {totalPrice} kr</TotalPara>
+        </div>
       </Cartsection>
- 
-         </Article>
+    </Article>
   );
 }
 
@@ -249,7 +260,8 @@ const Wrapper = styled.section``;
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-evenly;
+  gap: 20px;
   align-items: center;
 `;
 const Cartsection = styled.section`
@@ -264,8 +276,15 @@ const List = styled.li`
   align-items: center;
   list-style-type: none;
   padding: 5px;
+  text-transform: uppercase;
 `;
 const Para = styled.p`
+  width: 100px;
+  font-size: 0.8rem;
+`;
+
+const ButtonDiv = styled.div`
+  width: 100px;
   font-size: 0.8rem;
 `;
 const Button = styled.button`
@@ -277,7 +296,7 @@ const Button = styled.button`
   border-radius: 3px;
   border: 1.5px solid #3a6b35;
   cursor: pointer;
-  `;
+`;
 const Image = styled.img`
   height: 50px;
   width: 50px;
@@ -298,19 +317,33 @@ const Input = styled.input`
 `;
 const TextArea = styled.textarea`
   width: 200px;
-`
+  height: 250px;
+  
+`;
 const TotalPara = styled.div`
-display: flex;
-font-size: 0.8rem;
-justify-content: flex-end;
-margin-right: 50px;
-`
+  display: flex;
+  font-size: 0.8rem;
+  justify-content: flex-end;
+  text-transform: uppercase;
+  margin-right: 30px;
+`;
 const StyledModal = Modal.styled`
   width: 20rem;
-  height: 10rem;
+  height: 30rem;
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   gap:10%;
-  background-color: #a5a1a1;`;
+  background-color: #cbd18f;`;
+
+const Table = styled.table`
+  display: grid;
+  grid-template-columns: 4fr 1fr 1fr;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  justify-content: space-evenly;
+  width: 700px;
+  padding: 10px;
+  text-decoration: bold;
+`;

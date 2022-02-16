@@ -1,6 +1,4 @@
 import { render, screen } from "@testing-library/react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 const mockedNavigator = jest.fn();
 const mockedLink = jest.fn();
 
@@ -13,7 +11,7 @@ import "@testing-library/jest-dom";
 import ProductProvider from "../../context/productProvider";
 import Cart from "./Cart";
 import userEvent from "@testing-library/user-event";
-import productsData from "../../assets/data";
+
 
 describe("Testing Cart Component", () => {
   it("renders without crashing", () => {
