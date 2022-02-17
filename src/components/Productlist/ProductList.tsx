@@ -15,12 +15,13 @@ function ProductList() {
     searchInput,
     setSearchInput,
     setEditProduct,
+    
   } = useContext(ProductContext);
   const navigate = useNavigate();
 
   !localStorage.getItem("products") &&
     localStorage.setItem("products", JSON.stringify(productsData));
-
+  !localStorage.getItem("cart") && localStorage.setItem("cart", JSON.stringify(cart))
   useEffect(() => {
     if (localStorage.getItem("products")) {
       let allProducts = JSON.parse(localStorage.getItem("products") || "");
@@ -42,10 +43,10 @@ function ProductList() {
     handleDisable(id);
     itemsLeft -= 1;
     itemsInCart += 1;
-    const cartProduct = products.filter(
+       const cartProduct = products.filter(
       (product: Props) => product.id === id
     )[0];
-
+      
     cartProduct.inCart = true;
     cartProduct.itemsLeft = itemsLeft;
     cartProduct.itemsInCart = itemsInCart;
@@ -84,7 +85,7 @@ function ProductList() {
     navigate("/editProduct");
   };
   return (
-    <article>
+    <Article>
       <Input
         type="search"
         value={searchInput}
@@ -131,7 +132,7 @@ function ProductList() {
             })
           : null}
       </Section>
-    </article>
+    </Article>
   );
 }
 
@@ -145,8 +146,8 @@ const Input = styled.input`
   width: 500px;
   border: 1px solid grey;
   border-radius: 5px;
-  height: 20px;
-  padding: 2px 23px 2px 30px;
+  height: 30px;
+  padding: 5px 23px 2px 30px;
   outline: 0;
   background-color: #f5f5f5;
   &:focus {
@@ -172,6 +173,9 @@ const Image = styled.img`
   &:hover {
   }
 `;
+const Article = styled.article`
+padding-top: 15px;
+`
 const Section = styled.section`
   display: grid;
   justify-content: center;

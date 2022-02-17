@@ -34,6 +34,7 @@ function Login() {
     setEnteredPassword("");
     setEnteredUserName("");
     localStorage.removeItem("cart");
+    localStorage.removeItem("counter");
     sessionStorage.setItem("Role", "user");
     navigate("/");
   };

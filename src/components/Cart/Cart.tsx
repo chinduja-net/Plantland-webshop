@@ -16,6 +16,7 @@ function Cart() {
     address,
     setAddress,
     setName,
+    
   } = useContext(ProductContext);
   const [totalPrice, setTotalPrice] = useState<Number>(0);
 
@@ -33,7 +34,7 @@ function Cart() {
         JSON.parse(sessionStorage.getItem("User") || "")[0].cart;
       setCart(allCart);
     } else return;
-  }, [setCart]);
+  },[]);
 
   useEffect(() => {
     addCartValue();
@@ -61,6 +62,7 @@ function Cart() {
   ) => {
     itemsLeft -= 1;
     itemsInCart += 1;
+    
     let allCartItems = localStorage.getItem("cart")
       ? JSON.parse(localStorage.getItem("cart") || "")
       : userCart;
@@ -90,6 +92,7 @@ function Cart() {
   ) => {
     itemsLeft += 1;
     itemsInCart -= 1;
+    
     let allCartItems = localStorage.getItem("cart")
       ? JSON.parse(localStorage.getItem("cart") || "")
       : userCart;
@@ -269,6 +272,7 @@ const Cartsection = styled.section`
   border-radius: 5px;
   width: 700px;
   padding: 10px;
+  text-align: center;
 `;
 const List = styled.li`
   display: flex;

@@ -15,12 +15,11 @@ export default function ProductProvider(props: any) {
   const [products, setProducts] = useState<Props | []>([]);
 
   const [cart, setCart] = useState<Props | []>([]);
-    const [searchInput, setSearchInput] = useState<string>("");
+  const [searchInput, setSearchInput] = useState<string>("");
   const [isOpen, setIsOpen] = useState(false);
   const [name, setName] = useState<string>("");
   const [address, setAddress] = useState<string>("");
   const [editProduct, setEditProduct] = useState<newProps>();
-  
 
   return (
     <ProductContext.Provider
@@ -39,8 +38,6 @@ export default function ProductProvider(props: any) {
         setAddress,
         editProduct,
         setEditProduct,
-       
-       
       }}
     >
       {props.children}
