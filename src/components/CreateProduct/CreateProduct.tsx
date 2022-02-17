@@ -7,8 +7,9 @@ import { ProductContext } from "../../context/productProvider";
 import productsData from "../../assets/data";
 
 function CreateProduct() {
-  const { setProducts } = useContext(ProductContext);
   const navigate = useNavigate();
+  const { setProducts } = useContext(ProductContext);
+ 
   const [name, setName] = useState("");
   const [price, setPrice] = useState<number>(0);
   const [quantity, setQuantity] = useState<number>(0);

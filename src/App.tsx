@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import ProductList from "./components/Productlist/ProductList";
-import BottomNav from "./components/BottomNav/BottomNav"
+import BottomNav from "./components/BottomNav/BottomNav";
 import Nav from "./components/TopNav/TopNav";
 import Cart from "./components/Cart/Cart";
 import Login from "./components/Login/Login";
-import CreateProduct from "./components/CreateProduct/CreateProduct"
+import CreateProduct from "./components/CreateProduct/CreateProduct";
 import EditProduct from "./components/Editproduct/EditProduct";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
@@ -15,20 +15,40 @@ function App() {
       <Header>
         <BrowserRouter>
           <Routes>
-            <Route path="/login" element={<><Login /> <BottomNav/></>} />
-            <Route path="/cart" element={<><Cart /> <BottomNav/></>} />
-            <Route path = "/createProduct" element = {<><CreateProduct/></>}/>
-            <Route path="/editProduct" element={<EditProduct />} />
             <Route
               path="/"
               element={
                 <>
                   <Nav />
                   <ProductList />
-               
                 </>
               }
             />
+            <Route
+              path="/login"
+              element={
+                <>
+                  <Login /> <BottomNav />
+                </>
+              }
+            />
+            <Route
+              path="/cart"
+              element={
+                <>
+                  <Cart /> <BottomNav />
+                </>
+              }
+            />
+            <Route
+              path="/createProduct"
+              element={
+                <>
+                  <CreateProduct />
+                </>
+              }
+            />
+            <Route path="/editProduct" element={<EditProduct />} />
           </Routes>
         </BrowserRouter>
       </Header>

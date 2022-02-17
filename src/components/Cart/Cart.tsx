@@ -183,12 +183,12 @@ function Cart() {
       <Heading>shopping Cart</Heading>
 
       <Cartsection>
-        <Table>
-          <tr>cart items</tr>
+        <HeadingCart>
+          <h4>cart items</h4>
 
-          <tr>price</tr>
-          <tr>subtotal</tr>
-        </Table>
+          <h4>price</h4>
+          <h4>subtotal</h4>
+        </HeadingCart>
         {cart
           ? cart.map((cartItem: PropsCart) => {
               return (
@@ -341,7 +341,7 @@ const StyledModal = Modal.styled`
   gap:10%;
   background-color: #cbd18f;`;
 
-const Table = styled.table`
+const HeadingCart = styled.div`
   display: grid;
   grid-template-columns: 4fr 1fr 1fr;
   font-size: 0.8rem;

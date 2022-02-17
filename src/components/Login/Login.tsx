@@ -5,9 +5,10 @@ import { PropsUser } from "../../assets/props";
 import { admin, user } from "../../assets/users";
 
 function Login() {
+  const navigate = useNavigate();
   const [enteredUserName, setEnteredUserName] = useState("");
   const [enteredPassWord, setEnteredPassword] = useState("");
-  const navigate = useNavigate();
+ 
 
   const handleLogIn = (e: any) => {
     e.preventDefault();

@@ -5,9 +5,9 @@ import { newProps } from "../../assets/props";
 import { ProductContext } from "../../context/productProvider";
 
 function EditProduct() {
+  const navigate = useNavigate();
   const { editProduct } = useContext(ProductContext);
-
-   const navigate = useNavigate();
+   
   const [name, setName] = useState(editProduct.name);
   const [price, setPrice] = useState(editProduct.price);
   const [quantity, setQuantity] = useState<number>(editProduct.quantity);
