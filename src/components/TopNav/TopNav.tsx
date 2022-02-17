@@ -94,6 +94,8 @@ const Button = styled.button`
   border-radius: 3px;
   border: 1.5px solid #3a6b35;
   cursor: pointer;
+  padding:5px;
+  margin: auto;
 `;
 const Span = styled.span`
   line-height: 1;
