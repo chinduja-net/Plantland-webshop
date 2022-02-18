@@ -60,6 +60,7 @@ export default App;
 
 const Div = styled.div`
   text-align: center;
+ 
 `;
 const Header = styled.header`
   background-color: #e3b448;
@@ -69,4 +70,5 @@ const Header = styled.header`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  
 `;

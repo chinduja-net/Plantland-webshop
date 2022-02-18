@@ -35,6 +35,7 @@ function Nav() {
   return (
     <>
       <Div>
+        
         <Link to="/login">
           {!sessionStorage.getItem("Role") ? (
             <Button data-testid="login" onClick={handleLogin}>
@@ -62,7 +63,7 @@ function Nav() {
               
             )}
       </Div>
-        </>
+         </>
   );
 }
 
@@ -72,18 +73,12 @@ const Div = styled.div`
   display: flex;
   width: 100%;
   height: 50px;
-  background-color: #4c8b45;
+  background-color: #5a9453;
   justify-content: flex-end;
   justify-items: space-evenly;
   align-items: center;
 `;
 
-const HeroImage = styled.img`
-  background-attachment: fixed;
-  background-position: center;
-  width: 100%;
-  height: 600px;
-`;
 const Button = styled.button`
   font-size: 1rem;
   text-align: center;
@@ -104,9 +99,9 @@ const Span = styled.span`
   top: 1px;
   right: 15px;
   border-radius: 50%;
-  background-color: #e3b448;
+  background-color: #3a6b35;
   font-size: 0.8rem;
-  color: #000;
+  color: #e3b448;
   min-width: 20px;
   height: 20px;
   display: flex;

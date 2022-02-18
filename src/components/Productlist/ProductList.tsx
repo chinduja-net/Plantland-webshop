@@ -170,9 +170,7 @@ const Title = styled.h2`
 const Image = styled.img`
   height: 250px;
   width: 250px;
-  &:hover {
-  }
-`;
+  `;
 const Article = styled.article`
 padding-top: 15px;
 `
@@ -181,13 +179,18 @@ const Section = styled.section`
   justify-content: center;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 30px;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 const List = styled.li`
   list-style-type: none;
-
-  box-shadow: 0.5px 0.5px 3px #3a6b35;
+  box-shadow: 0.5px 0.5px 5px #5a9453;
   width: 300px;
   padding: 10px;
+  background-color: #5a9453;
+ 
+  
 `;
 
 const BUTTON = styled.button`
@@ -204,5 +207,9 @@ const BUTTON = styled.button`
     background-color: #b8a7a7;
     opacity: 0.7;
     cursor: default;
+  }
+  &:hover{
+    transform: scale(1.1);
+  
   }
 `;
