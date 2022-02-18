@@ -1,4 +1,4 @@
-An online Webshop application created as an assignment for the testing course in my frontend Development education. Developed with Typescript, React and styled by 'styled-components' and tested with Jest for the frontend.<br><br>
+An online Webshop application created as an assignment for the testing course in my frontend Development education. Developed with Typescript, React and styled by 'styled-components' and tested with Jest for the frontend.<br><br>Published in https://plantland-webshop.herokuapp.com/
 <br>
 <br>
 <hr>
